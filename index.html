@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hallownest Map</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="map-sidebar" id="map-sidebar" aria-label="Pin categories">
+      <header class="sidebar-header">
+        <div>
+          <h1 class="sidebar-title">Hallownest</h1>
+          <p class="sidebar-subtitle">Interactive Map</p>
+        </div>
+        <button
+          type="button"
+          id="sidebar-toggle"
+          class="sidebar-toggle-btn"
+          aria-controls="map-sidebar"
+          aria-expanded="true"
+          aria-label="Collapse sidebar"
+        >
+          <span aria-hidden="true">❮</span>
+        </button>
+      </header>
+      <nav id="category-list" class="category-list" aria-label="Filter pins by category"></nav>
+      <button type="button" id="reset-view" class="reset-view-btn">Reset view</button>
+    </aside>
+
+    <main class="map-stage">
+      <button
+        type="button"
+        id="mobile-sidebar-toggle"
+        class="mobile-sidebar-toggle"
+        aria-controls="map-sidebar"
+        aria-expanded="false"
+        aria-label="Open filters sidebar"
+      >
+        Filters
+      </button>
+      <div id="map-viewport" class="map-viewport" aria-label="Hallownest map">
+        <div id="map-transform" class="map-transform">
+          <img
+            id="basemap"
+            class="basemap"
+            src="assets/hollownest-basemap/hallownest.jpeg"
+            width="4498"
+            height="2901"
+            alt="Map of Hallownest"
+            draggable="false"
+          >
+          <div id="markers-layer" class="markers-layer"></div>
+        </div>
+      </div>
+      <div id="tooltip" class="tooltip" role="tooltip" aria-hidden="true"></div>
+    </main>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

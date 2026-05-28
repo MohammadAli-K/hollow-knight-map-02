@@ -1,0 +1,460 @@
+{
+  "sources": [
+    {
+      "id": "bench-1",
+      "mapgenieId": 446807,
+      "mapgenieTitle": "Bench - Dirtmouth",
+      "mapgenieRegion": "Dirtmouth",
+      "matchMethod": "region_match",
+      "matchScore": 135
+    },
+    {
+      "id": "bench-2",
+      "mapgenieId": 446817,
+      "mapgenieTitle": "Bench - Forgotten Crossroads Stag Station",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "manual",
+      "matchScore": 230
+    },
+    {
+      "id": "bench-3",
+      "mapgenieId": 469895,
+      "mapgenieTitle": "Bench - Greenpath",
+      "mapgenieRegion": "Greenpath",
+      "matchMethod": "region_match",
+      "matchScore": 135
+    },
+    {
+      "id": "bench-4",
+      "mapgenieId": 470106,
+      "mapgenieTitle": "Bench - Leg Eater's Camp",
+      "mapgenieRegion": "Fungal Wastes",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "bench-5",
+      "mapgenieId": 470217,
+      "mapgenieTitle": "Bench - City of Tears",
+      "mapgenieRegion": "City of Tears",
+      "matchMethod": "region_match",
+      "matchScore": 135
+    },
+    {
+      "id": "bench-6",
+      "mapgenieId": 469874,
+      "mapgenieTitle": "Bench - Resting Grounds Stag Station",
+      "mapgenieRegion": "Resting Grounds",
+      "matchMethod": "region_match",
+      "matchScore": 135
+    },
+    {
+      "id": "bench-7",
+      "mapgenieId": 469845,
+      "mapgenieTitle": "Bench - Crystal Peak",
+      "mapgenieRegion": "Crystal Peak",
+      "matchMethod": "region_match",
+      "matchScore": 150
+    },
+    {
+      "id": "bench-8",
+      "mapgenieId": 470178,
+      "mapgenieTitle": "Bench - Deepnest Hot Springs",
+      "mapgenieRegion": "Deepnest",
+      "matchMethod": "manual",
+      "matchScore": 150
+    },
+    {
+      "id": "bench-9",
+      "mapgenieId": 470321,
+      "mapgenieTitle": "Bench - Ancient Basin",
+      "mapgenieRegion": "Ancient Basin",
+      "matchMethod": "region_match",
+      "matchScore": 135
+    },
+    {
+      "id": "bench-10",
+      "mapgenieId": 470157,
+      "mapgenieTitle": "Bench - Queen's Gardens",
+      "mapgenieRegion": "Queen's Gardens",
+      "matchMethod": "region_match",
+      "matchScore": 135
+    },
+    {
+      "id": "bench-11",
+      "mapgenieId": 469893,
+      "mapgenieTitle": "Bench - Howling Cliffs",
+      "mapgenieRegion": "Howling Cliffs",
+      "matchMethod": "region_match",
+      "matchScore": 135
+    },
+    {
+      "id": "bench-12",
+      "mapgenieId": 470291,
+      "mapgenieTitle": "Bench - Kingdom's Edge",
+      "mapgenieRegion": "Kingdom's Edge",
+      "matchMethod": "region_match",
+      "matchScore": 135
+    },
+    {
+      "id": "stag-1",
+      "mapgenieId": 469543,
+      "mapgenieTitle": "Stag Station - Dirtmouth",
+      "mapgenieRegion": "Dirtmouth",
+      "matchMethod": "region_match",
+      "matchScore": 135
+    },
+    {
+      "id": "stag-2",
+      "mapgenieId": 446819,
+      "mapgenieTitle": "Stag Station - Forgotten Crossroads",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "region_match",
+      "matchScore": 135
+    },
+    {
+      "id": "stag-3",
+      "mapgenieId": 469911,
+      "mapgenieTitle": "Stag Station - Greenpath",
+      "mapgenieRegion": "Greenpath",
+      "matchMethod": "region_match",
+      "matchScore": 135
+    },
+    {
+      "id": "stag-4",
+      "mapgenieId": 470100,
+      "mapgenieTitle": "Stag Station - Queen's Station",
+      "mapgenieRegion": "Queen's Station",
+      "matchMethod": "region_match",
+      "matchScore": 135
+    },
+    {
+      "id": "stag-5",
+      "mapgenieId": 470206,
+      "mapgenieTitle": "Stag Station - City Storerooms",
+      "mapgenieRegion": "City of Tears",
+      "matchMethod": "region_match",
+      "matchScore": 120
+    },
+    {
+      "id": "stag-6",
+      "mapgenieId": 469873,
+      "mapgenieTitle": "Stag Station - Resting Grounds",
+      "mapgenieRegion": "Resting Grounds",
+      "matchMethod": "region_match",
+      "matchScore": 135
+    },
+    {
+      "id": "stag-7",
+      "mapgenieId": 470199,
+      "mapgenieTitle": "Stag Station - Distant Village",
+      "mapgenieRegion": "Distant Village",
+      "matchMethod": "region_match",
+      "matchScore": 135
+    },
+    {
+      "id": "stag-8",
+      "mapgenieId": 470319,
+      "mapgenieTitle": "Stag Station - Hidden Station",
+      "mapgenieRegion": "Ancient Basin",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "stag-9",
+      "mapgenieId": 469888,
+      "mapgenieTitle": "Stag Station - Stag Nest",
+      "mapgenieRegion": "Howling Cliffs",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "springs-1",
+      "mapgenieId": 469820,
+      "mapgenieTitle": "Hot Spring",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "springs-2",
+      "mapgenieId": 469820,
+      "mapgenieTitle": "Hot Spring",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "manual",
+      "matchScore": -5
+    },
+    {
+      "id": "springs-3",
+      "mapgenieId": 470229,
+      "mapgenieTitle": "Hot Spring - Pleasure House",
+      "mapgenieRegion": "Pleasure House",
+      "matchMethod": "region_match",
+      "matchScore": 150
+    },
+    {
+      "id": "springs-4",
+      "mapgenieId": 470179,
+      "mapgenieTitle": "Hot Spring",
+      "mapgenieRegion": "Deepnest",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "springs-5",
+      "mapgenieId": 470179,
+      "mapgenieTitle": "Hot Spring",
+      "mapgenieRegion": "Deepnest",
+      "matchMethod": "manual",
+      "matchScore": -5
+    },
+    {
+      "id": "springs-6",
+      "mapgenieId": 470229,
+      "mapgenieTitle": "Hot Spring - Pleasure House",
+      "mapgenieRegion": "Pleasure House",
+      "matchMethod": "manual",
+      "matchScore": -5
+    },
+    {
+      "id": "springs-7",
+      "mapgenieId": 469820,
+      "mapgenieTitle": "Hot Spring",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "manual",
+      "matchScore": -5
+    },
+    {
+      "id": "springs-8",
+      "mapgenieId": 470179,
+      "mapgenieTitle": "Hot Spring",
+      "mapgenieRegion": "Deepnest",
+      "matchMethod": "manual",
+      "matchScore": -5
+    },
+    {
+      "id": "springs-9",
+      "mapgenieId": 470272,
+      "mapgenieTitle": "Hot Spring - Colosseum of Fools",
+      "mapgenieRegion": "Colosseum of Fools",
+      "matchMethod": "manual",
+      "matchScore": -5
+    },
+    {
+      "id": "springs-10",
+      "mapgenieId": 469820,
+      "mapgenieTitle": "Hot Spring",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "manual",
+      "matchScore": -5
+    },
+    {
+      "id": "tram-1",
+      "mapgenieId": 469768,
+      "mapgenieTitle": "Tram Station - Kingdom's Edge",
+      "mapgenieRegion": "Kingdom's Edge",
+      "matchMethod": "region_match",
+      "matchScore": 135
+    },
+    {
+      "id": "tram-2",
+      "mapgenieId": 469765,
+      "mapgenieTitle": "Tram Station - Resting Grounds",
+      "mapgenieRegion": "Resting Grounds",
+      "matchMethod": "manual",
+      "matchScore": 135
+    },
+    {
+      "id": "tram-3",
+      "mapgenieId": 469766,
+      "mapgenieTitle": "Tram Station - Deepnest",
+      "mapgenieRegion": "Deepnest",
+      "matchMethod": "region_match",
+      "matchScore": 135
+    },
+    {
+      "id": "tram-4",
+      "mapgenieId": 469767,
+      "mapgenieTitle": "Tram Station - Ancient Basin",
+      "mapgenieRegion": "Ancient Basin",
+      "matchMethod": "region_match",
+      "matchScore": 135
+    },
+    {
+      "id": "grub-1",
+      "mapgenieId": 433668,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "grub-2",
+      "mapgenieId": 433674,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Greenpath",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "grub-3",
+      "mapgenieId": 433683,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Fungal Wastes",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "grub-4",
+      "mapgenieId": 433685,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "City of Tears",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "grub-5",
+      "mapgenieId": 433709,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Deepnest",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "grub-6",
+      "mapgenieId": 433714,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Ancient Basin",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "grub-7",
+      "mapgenieId": 433680,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Crystal Peak",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "grub-8",
+      "mapgenieId": 433699,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Resting Grounds",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "grub-9",
+      "mapgenieId": 433700,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Royal Waterways",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "grub-10",
+      "mapgenieId": 433716,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "The Hive",
+      "matchMethod": "region_match",
+      "matchScore": 155
+    },
+    {
+      "id": "grub-11",
+      "mapgenieId": 433707,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Queen's Gardens",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "grub-12",
+      "mapgenieId": 433703,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Howling Cliffs",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "cocoon-1",
+      "mapgenieId": 469810,
+      "mapgenieTitle": "Lifeblood Cocoon",
+      "mapgenieRegion": "Ancestral Mound",
+      "matchMethod": "manual",
+      "matchScore": 105
+    },
+    {
+      "id": "cocoon-2",
+      "mapgenieId": 469912,
+      "mapgenieTitle": "Lifeblood Cocoon",
+      "mapgenieRegion": "Greenpath",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "cocoon-3",
+      "mapgenieId": 470129,
+      "mapgenieTitle": "Lifeblood Cocoon",
+      "mapgenieRegion": "Mantis Village",
+      "matchMethod": "nearest",
+      "matchScore": -5
+    },
+    {
+      "id": "cocoon-4",
+      "mapgenieId": 470129,
+      "mapgenieTitle": "Lifeblood Cocoon",
+      "mapgenieRegion": "Mantis Village",
+      "matchMethod": "manual",
+      "matchScore": -5
+    },
+    {
+      "id": "cocoon-5",
+      "mapgenieId": 470188,
+      "mapgenieTitle": "Lifeblood Cocoon",
+      "mapgenieRegion": "Failed Tramway",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "cocoon-6",
+      "mapgenieId": 470188,
+      "mapgenieTitle": "Lifeblood Cocoon",
+      "mapgenieRegion": "Failed Tramway",
+      "matchMethod": "manual",
+      "matchScore": -5
+    },
+    {
+      "id": "cocoon-7",
+      "mapgenieId": 470284,
+      "mapgenieTitle": "Lifeblood Cocoon",
+      "mapgenieRegion": "Kingdom's Edge",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    },
+    {
+      "id": "cocoon-8",
+      "mapgenieId": 470095,
+      "mapgenieTitle": "Lifeblood Cocoon",
+      "mapgenieRegion": "Fog Canyon",
+      "matchMethod": "manual",
+      "matchScore": -5
+    },
+    {
+      "id": "cocoon-9",
+      "mapgenieId": 470284,
+      "mapgenieTitle": "Lifeblood Cocoon",
+      "mapgenieRegion": "Kingdom's Edge",
+      "matchMethod": "manual",
+      "matchScore": -5
+    },
+    {
+      "id": "cocoon-10",
+      "mapgenieId": 470095,
+      "mapgenieTitle": "Lifeblood Cocoon",
+      "mapgenieRegion": "Fog Canyon",
+      "matchMethod": "region_match",
+      "matchScore": 105
+    }
+  ]
+}

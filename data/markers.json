@@ -1,0 +1,925 @@
+{
+  "map": {
+    "width": 4498,
+    "height": 2901,
+    "src": "assets/hollownest-basemap/hallownest.jpeg",
+    "coordinateSystem": {
+      "type": "mapgenie-mapbox",
+      "bounds": [-1.4, 0, 0, 1.4]
+    }
+  },
+  "markers": [
+    {
+      "id": "bench-1",
+      "category": "bench",
+      "name": "Bench - Dirtmouth",
+      "x": 2041,
+      "y": 1164,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 446807,
+        "title": "Bench - Dirtmouth",
+        "region": "Dirtmouth",
+        "latitude": "0.83804241692380",
+        "longitude": "-0.76488018036039",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "bench-2",
+      "category": "bench",
+      "name": "Bench - Forgotten Crossroads Stag Station",
+      "x": 2252,
+      "y": 1258,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 446817,
+        "title": "Bench - Forgotten Crossroads Stag Station",
+        "region": "Forgotten Crossroads",
+        "latitude": "0.79310387690941",
+        "longitude": "-0.69908022880443",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "bench-3",
+      "category": "bench",
+      "name": "Bench - Greenpath",
+      "x": 1772,
+      "y": 1201,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469895,
+        "title": "Bench - Greenpath",
+        "region": "Greenpath",
+        "latitude": "0.82033582501415",
+        "longitude": "-0.84840543194596",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "bench-4",
+      "category": "bench",
+      "name": "Bench - Leg Eater's Camp",
+      "x": 2104,
+      "y": 1352,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470106,
+        "title": "Bench - Leg Eater's Camp",
+        "region": "Fungal Wastes",
+        "latitude": "0.74762001012959",
+        "longitude": "-0.74517130087276",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "bench-5",
+      "category": "bench",
+      "name": "Bench - City of Tears",
+      "x": 2313,
+      "y": 1485,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470217,
+        "title": "Bench - City of Tears",
+        "region": "City of Tears",
+        "latitude": "0.68330786324643",
+        "longitude": "-0.68001123194531",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "bench-6",
+      "category": "bench",
+      "name": "Bench - Resting Grounds Stag Station",
+      "x": 2857,
+      "y": 1241,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469874,
+        "title": "Bench - Resting Grounds Stag Station",
+        "region": "Resting Grounds",
+        "latitude": "0.80096735283176",
+        "longitude": "-0.51081061363163",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "bench-7",
+      "category": "bench",
+      "name": "Bench - Crystal Peak",
+      "x": 2505,
+      "y": 1130,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469845,
+        "title": "Bench - Crystal Peak",
+        "region": "Crystal Peak",
+        "latitude": "0.85475075577588",
+        "longitude": "-0.62023401260379",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "bench-8",
+      "category": "bench",
+      "name": "Bench - Deepnest Hot Springs",
+      "x": 1773,
+      "y": 1649,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470178,
+        "title": "Bench - Deepnest Hot Springs",
+        "region": "Deepnest",
+        "latitude": "0.60418856930413",
+        "longitude": "-0.84808230400100",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "bench-9",
+      "category": "bench",
+      "name": "Bench - Ancient Basin",
+      "x": 2390,
+      "y": 1705,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470321,
+        "title": "Bench - Ancient Basin",
+        "region": "Ancient Basin",
+        "latitude": "0.57727025467888",
+        "longitude": "-0.65616629875220",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "bench-10",
+      "category": "bench",
+      "name": "Bench - Queen's Gardens",
+      "x": 1476,
+      "y": 1412,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470157,
+        "title": "Bench - Queen's Gardens",
+        "region": "Queen's Gardens",
+        "latitude": "0.71878019767274",
+        "longitude": "-0.94059402108743",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "bench-11",
+      "category": "bench",
+      "name": "Bench - Howling Cliffs",
+      "x": 1742,
+      "y": 1085,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469893,
+        "title": "Bench - Howling Cliffs",
+        "region": "Howling Cliffs",
+        "latitude": "0.87645616540848",
+        "longitude": "-0.85768788549873",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "bench-12",
+      "category": "bench",
+      "name": "Bench - Kingdom's Edge",
+      "x": 3116,
+      "y": 1485,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470291,
+        "title": "Bench - Kingdom's Edge",
+        "region": "Kingdom's Edge",
+        "latitude": "0.68317853228464",
+        "longitude": "-0.43001954678604",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "stag-1",
+      "category": "stag",
+      "name": "Stag Station - Dirtmouth",
+      "x": 2074,
+      "y": 1164,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469543,
+        "title": "Stag Station - Dirtmouth",
+        "region": "Dirtmouth",
+        "latitude": "0.83840179446881",
+        "longitude": "-0.75459122657921",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "stag-2",
+      "category": "stag",
+      "name": "Stag Station - Forgotten Crossroads",
+      "x": 2238,
+      "y": 1259,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 446819,
+        "title": "Stag Station - Forgotten Crossroads",
+        "region": "Forgotten Crossroads",
+        "latitude": "0.79249239179489",
+        "longitude": "-0.70355415344315",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "stag-3",
+      "category": "stag",
+      "name": "Stag Station - Greenpath",
+      "x": 1486,
+      "y": 1212,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469911,
+        "title": "Stag Station - Greenpath",
+        "region": "Greenpath",
+        "latitude": "0.81502073051433",
+        "longitude": "-0.93735694885206",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "stag-4",
+      "category": "stag",
+      "name": "Stag Station - Queen's Station",
+      "x": 1787,
+      "y": 1442,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470100,
+        "title": "Stag Station - Queen's Station",
+        "region": "Queen's Station",
+        "latitude": "0.70430889144390",
+        "longitude": "-0.84393024444532",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "stag-5",
+      "category": "stag",
+      "name": "Stag Station - City Storerooms",
+      "x": 2315,
+      "y": 1377,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470206,
+        "title": "Stag Station - City Storerooms",
+        "region": "City of Tears",
+        "latitude": "0.73530022501780",
+        "longitude": "-0.67949721301662",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "stag-6",
+      "category": "stag",
+      "name": "Stag Station - Resting Grounds",
+      "x": 2870,
+      "y": 1242,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469873,
+        "title": "Stag Station - Resting Grounds",
+        "region": "Resting Grounds",
+        "latitude": "0.80043096341032",
+        "longitude": "-0.50665855407476",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "stag-7",
+      "category": "stag",
+      "name": "Stag Station - Distant Village",
+      "x": 1274,
+      "y": 1560,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470199,
+        "title": "Stag Station - Distant Village",
+        "region": "Distant Village",
+        "latitude": "0.64697798027190",
+        "longitude": "-1.00336074829330",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "stag-8",
+      "category": "stag",
+      "name": "Stag Station - Hidden Station",
+      "x": 2703,
+      "y": 1697,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470319,
+        "title": "Stag Station - Hidden Station",
+        "region": "Ancient Basin",
+        "latitude": "0.58093506096102",
+        "longitude": "-0.55863440036904",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "stag-9",
+      "category": "stag",
+      "name": "Stag Station - Stag Nest",
+      "x": 1650,
+      "y": 1058,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469888,
+        "title": "Stag Station - Stag Nest",
+        "region": "Howling Cliffs",
+        "latitude": "0.88951352090473",
+        "longitude": "-0.88654518127581",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "springs-1",
+      "category": "springs",
+      "name": "Hot Spring",
+      "x": 2138,
+      "y": 1261,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469820,
+        "title": "Hot Spring",
+        "region": "Forgotten Crossroads",
+        "latitude": "0.79153761661483",
+        "longitude": "-0.73465704917766",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "springs-2",
+      "category": "springs",
+      "name": "Hot Spring",
+      "x": 1603,
+      "y": 1238,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469820,
+        "title": "Hot Spring",
+        "region": "Forgotten Crossroads",
+        "latitude": "0.79153761661483",
+        "longitude": "-0.73465704917766",
+        "positionNote": "region_centroid"
+      }
+    },
+    {
+      "id": "springs-3",
+      "category": "springs",
+      "name": "Hot Spring - Pleasure House",
+      "x": 2723,
+      "y": 1413,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470229,
+        "title": "Hot Spring - Pleasure House",
+        "region": "Pleasure House",
+        "latitude": "0.71818557159358",
+        "longitude": "-0.55244922638448",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "springs-4",
+      "category": "springs",
+      "name": "Hot Spring",
+      "x": 1762,
+      "y": 1649,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470179,
+        "title": "Hot Spring",
+        "region": "Deepnest",
+        "latitude": "0.60418856930413",
+        "longitude": "-0.85142970085207",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "springs-5",
+      "category": "springs",
+      "name": "Hot Spring",
+      "x": 2462,
+      "y": 1683,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470179,
+        "title": "Hot Spring",
+        "region": "Deepnest",
+        "latitude": "0.60418856930413",
+        "longitude": "-0.85142970085207",
+        "positionNote": "region_centroid"
+      }
+    },
+    {
+      "id": "springs-6",
+      "category": "springs",
+      "name": "Hot Spring - Pleasure House",
+      "x": 1448,
+      "y": 1390,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470229,
+        "title": "Hot Spring - Pleasure House",
+        "region": "Pleasure House",
+        "latitude": "0.71818557159358",
+        "longitude": "-0.55244922638448",
+        "positionNote": "region_centroid"
+      }
+    },
+    {
+      "id": "springs-7",
+      "category": "springs",
+      "name": "Hot Spring",
+      "x": 1966,
+      "y": 1416,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469820,
+        "title": "Hot Spring",
+        "region": "Forgotten Crossroads",
+        "latitude": "0.79153761661483",
+        "longitude": "-0.73465704917766",
+        "positionNote": "region_centroid"
+      }
+    },
+    {
+      "id": "springs-8",
+      "category": "springs",
+      "name": "Hot Spring",
+      "x": 2503,
+      "y": 1565,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470179,
+        "title": "Hot Spring",
+        "region": "Deepnest",
+        "latitude": "0.60418856930413",
+        "longitude": "-0.85142970085207",
+        "positionNote": "region_centroid"
+      }
+    },
+    {
+      "id": "springs-9",
+      "category": "springs",
+      "name": "Hot Spring - Colosseum of Fools",
+      "x": 2933,
+      "y": 1382,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470272,
+        "title": "Hot Spring - Colosseum of Fools",
+        "region": "Colosseum of Fools",
+        "latitude": "0.73308866457589",
+        "longitude": "-0.48723018779637",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "springs-10",
+      "category": "springs",
+      "name": "Hot Spring",
+      "x": 2526,
+      "y": 1166,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469820,
+        "title": "Hot Spring",
+        "region": "Forgotten Crossroads",
+        "latitude": "0.79153761661483",
+        "longitude": "-0.73465704917766",
+        "positionNote": "region_centroid"
+      }
+    },
+    {
+      "id": "tram-1",
+      "category": "tram",
+      "name": "Tram Station - Kingdom's Edge",
+      "x": 2762,
+      "y": 1649,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469768,
+        "title": "Tram Station - Kingdom's Edge",
+        "region": "Kingdom's Edge",
+        "latitude": "0.60438943174989",
+        "longitude": "-0.54033271184147",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "tram-2",
+      "category": "tram",
+      "name": "Tram Station - Resting Grounds",
+      "x": 2535,
+      "y": 1266,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469765,
+        "title": "Tram Station - Resting Grounds",
+        "region": "Resting Grounds",
+        "latitude": "0.78925259197484",
+        "longitude": "-0.61085164547143",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "tram-3",
+      "category": "tram",
+      "name": "Tram Station - Deepnest",
+      "x": 1941,
+      "y": 1648,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469766,
+        "title": "Tram Station - Deepnest",
+        "region": "Deepnest",
+        "latitude": "0.60446750352423",
+        "longitude": "-0.79583287239058",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "tram-4",
+      "category": "tram",
+      "name": "Tram Station - Ancient Basin",
+      "x": 2461,
+      "y": 1649,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469767,
+        "title": "Tram Station - Ancient Basin",
+        "region": "Ancient Basin",
+        "latitude": "0.60414029222613",
+        "longitude": "-0.63413858413873",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "grub-1",
+      "category": "grub",
+      "name": "Captive Grub",
+      "x": 2128,
+      "y": 1207,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 433668,
+        "title": "Captive Grub",
+        "region": "Forgotten Crossroads",
+        "latitude": "0.81769193953197",
+        "longitude": "-0.73769330978368",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "grub-2",
+      "category": "grub",
+      "name": "Captive Grub",
+      "x": 1865,
+      "y": 1246,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 433674,
+        "title": "Captive Grub",
+        "region": "Greenpath",
+        "latitude": "0.79863330394622",
+        "longitude": "-0.81957652182552",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "grub-3",
+      "category": "grub",
+      "name": "Captive Grub",
+      "x": 2002,
+      "y": 1434,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 433683,
+        "title": "Captive Grub",
+        "region": "Fungal Wastes",
+        "latitude": "0.70799792381712",
+        "longitude": "-0.77675769524114",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "grub-4",
+      "category": "grub",
+      "name": "Captive Grub",
+      "x": 2458,
+      "y": 1450,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 433685,
+        "title": "Captive Grub",
+        "region": "City of Tears",
+        "latitude": "0.70019173152311",
+        "longitude": "-0.63486588487152",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "grub-5",
+      "category": "grub",
+      "name": "Captive Grub",
+      "x": 1866,
+      "y": 1503,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 433709,
+        "title": "Captive Grub",
+        "region": "Deepnest",
+        "latitude": "0.67466190007586",
+        "longitude": "-0.81914126873170",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "grub-6",
+      "category": "grub",
+      "name": "Captive Grub",
+      "x": 2165,
+      "y": 1676,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 433714,
+        "title": "Captive Grub",
+        "region": "Ancient Basin",
+        "latitude": "0.59110423220739",
+        "longitude": "-0.72601607901336",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "grub-7",
+      "category": "grub",
+      "name": "Captive Grub",
+      "x": 2484,
+      "y": 1186,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 433680,
+        "title": "Captive Grub",
+        "region": "Crystal Peak",
+        "latitude": "0.82745414004764",
+        "longitude": "-0.62672750326615",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "grub-8",
+      "category": "grub",
+      "name": "Captive Grub",
+      "x": 2866,
+      "y": 1282,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 433699,
+        "title": "Captive Grub",
+        "region": "Resting Grounds",
+        "latitude": "0.78153928358473",
+        "longitude": "-0.50806403160081",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "grub-9",
+      "category": "grub",
+      "name": "Captive Grub",
+      "x": 2352,
+      "y": 1565,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 433700,
+        "title": "Captive Grub",
+        "region": "Royal Waterways",
+        "latitude": "0.64468605714529",
+        "longitude": "-0.66797080564879",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "grub-10",
+      "category": "grub",
+      "name": "Captive Grub",
+      "x": 2880,
+      "y": 1597,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 433716,
+        "title": "Captive Grub",
+        "region": "The Hive",
+        "latitude": "0.62916784301427",
+        "longitude": "-0.50353656796409",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "grub-11",
+      "category": "grub",
+      "name": "Captive Grub",
+      "x": 1471,
+      "y": 1293,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 433707,
+        "title": "Captive Grub",
+        "region": "Queen's Gardens",
+        "latitude": "0.77579758334716",
+        "longitude": "-0.94225447268769",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "grub-12",
+      "category": "grub",
+      "name": "Captive Grub",
+      "x": 1706,
+      "y": 1149,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 433703,
+        "title": "Captive Grub",
+        "region": "Howling Cliffs",
+        "latitude": "0.84551727945983",
+        "longitude": "-0.86888679109444",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "cocoon-1",
+      "category": "cocoon",
+      "name": "Lifeblood Cocoon",
+      "x": 2102,
+      "y": 1233,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469810,
+        "title": "Lifeblood Cocoon",
+        "region": "Ancestral Mound",
+        "latitude": "0.80499563514077",
+        "longitude": "-0.74572384357563",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "cocoon-2",
+      "category": "cocoon",
+      "name": "Lifeblood Cocoon",
+      "x": 1589,
+      "y": 1186,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 469912,
+        "title": "Lifeblood Cocoon",
+        "region": "Greenpath",
+        "latitude": "0.82764118612579",
+        "longitude": "-0.90532263191065",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "cocoon-3",
+      "category": "cocoon",
+      "name": "Lifeblood Cocoon",
+      "x": 1970,
+      "y": 1557,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470129,
+        "title": "Lifeblood Cocoon",
+        "region": "Mantis Village",
+        "latitude": "0.64840751992678",
+        "longitude": "-0.78696207278384",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "cocoon-4",
+      "category": "cocoon",
+      "name": "Lifeblood Cocoon",
+      "x": 2493,
+      "y": 1455,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470129,
+        "title": "Lifeblood Cocoon",
+        "region": "Mantis Village",
+        "latitude": "0.64840751992678",
+        "longitude": "-0.78696207278384",
+        "positionNote": "region_centroid"
+      }
+    },
+    {
+      "id": "cocoon-5",
+      "category": "cocoon",
+      "name": "Lifeblood Cocoon",
+      "x": 1570,
+      "y": 1522,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470188,
+        "title": "Lifeblood Cocoon",
+        "region": "Failed Tramway",
+        "latitude": "0.66562892213695",
+        "longitude": "-0.91128475996953",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "cocoon-6",
+      "category": "cocoon",
+      "name": "Lifeblood Cocoon",
+      "x": 2462,
+      "y": 1683,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470188,
+        "title": "Lifeblood Cocoon",
+        "region": "Failed Tramway",
+        "latitude": "0.66562892213695",
+        "longitude": "-0.91128475996953",
+        "positionNote": "region_centroid"
+      }
+    },
+    {
+      "id": "cocoon-7",
+      "category": "cocoon",
+      "name": "Lifeblood Cocoon",
+      "x": 3081,
+      "y": 1442,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470284,
+        "title": "Lifeblood Cocoon",
+        "region": "Kingdom's Edge",
+        "latitude": "0.70402791600858",
+        "longitude": "-0.44098848028952",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "cocoon-8",
+      "category": "cocoon",
+      "name": "Lifeblood Cocoon",
+      "x": 2503,
+      "y": 1565,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470095,
+        "title": "Lifeblood Cocoon",
+        "region": "Fog Canyon",
+        "latitude": "0.75512726441123",
+        "longitude": "-0.87919592857483",
+        "positionNote": "region_centroid"
+      }
+    },
+    {
+      "id": "cocoon-9",
+      "category": "cocoon",
+      "name": "Lifeblood Cocoon",
+      "x": 3081,
+      "y": 1442,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470284,
+        "title": "Lifeblood Cocoon",
+        "region": "Kingdom's Edge",
+        "latitude": "0.70402791600858",
+        "longitude": "-0.44098848028952",
+        "positionNote": null
+      }
+    },
+    {
+      "id": "cocoon-10",
+      "category": "cocoon",
+      "name": "Lifeblood Cocoon",
+      "x": 1673,
+      "y": 1336,
+      "ref": {
+        "source": "mapgenie",
+        "mapgenieId": 470095,
+        "title": "Lifeblood Cocoon",
+        "region": "Fog Canyon",
+        "latitude": "0.75512726441123",
+        "longitude": "-0.87919592857483",
+        "positionNote": null
+      }
+    }
+  ]
+}
