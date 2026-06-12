@@ -2,459 +2,979 @@
   "sources": [
     {
       "id": "bench-1",
-      "mapgenieId": 446807,
-      "mapgenieTitle": "Bench - Dirtmouth",
-      "mapgenieRegion": "Dirtmouth",
-      "matchMethod": "region_match",
-      "matchScore": 135
+      "mapgenieId": 469817,
+      "mapgenieTitle": "Bench - Ancestral Mound",
+      "mapgenieRegion": "Ancestral Mound",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "bench-2",
-      "mapgenieId": 446817,
-      "mapgenieTitle": "Bench - Forgotten Crossroads Stag Station",
-      "mapgenieRegion": "Forgotten Crossroads",
-      "matchMethod": "manual",
-      "matchScore": 230
+      "mapgenieId": 470320,
+      "mapgenieTitle": "Bench - Palace Grounds",
+      "mapgenieRegion": "Ancient Basin",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "bench-3",
-      "mapgenieId": 469895,
-      "mapgenieTitle": "Bench - Greenpath",
-      "mapgenieRegion": "Greenpath",
-      "matchMethod": "region_match",
-      "matchScore": 135
+      "mapgenieId": 470321,
+      "mapgenieTitle": "Bench - Ancient Basin",
+      "mapgenieRegion": "Ancient Basin",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "bench-4",
-      "mapgenieId": 470106,
-      "mapgenieTitle": "Bench - Leg Eater's Camp",
-      "mapgenieRegion": "Fungal Wastes",
-      "matchMethod": "region_match",
-      "matchScore": 105
+      "mapgenieId": 470208,
+      "mapgenieTitle": "Bench - City Storerooms",
+      "mapgenieRegion": "City of Tears",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "bench-5",
       "mapgenieId": 470217,
       "mapgenieTitle": "Bench - City of Tears",
       "mapgenieRegion": "City of Tears",
-      "matchMethod": "region_match",
-      "matchScore": 135
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "bench-6",
-      "mapgenieId": 469874,
-      "mapgenieTitle": "Bench - Resting Grounds Stag Station",
-      "mapgenieRegion": "Resting Grounds",
-      "matchMethod": "region_match",
-      "matchScore": 135
+      "mapgenieId": 470219,
+      "mapgenieTitle": "Bench - City of Tears",
+      "mapgenieRegion": "City of Tears",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "bench-7",
-      "mapgenieId": 469845,
-      "mapgenieTitle": "Bench - Crystal Peak",
-      "mapgenieRegion": "Crystal Peak",
-      "matchMethod": "region_match",
-      "matchScore": 150
+      "mapgenieId": 470225,
+      "mapgenieTitle": "Bench - Watcher's Spire",
+      "mapgenieRegion": "City of Tears",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "bench-8",
-      "mapgenieId": 470178,
-      "mapgenieTitle": "Bench - Deepnest Hot Springs",
-      "mapgenieRegion": "Deepnest",
-      "matchMethod": "manual",
-      "matchScore": 150
+      "mapgenieId": 470273,
+      "mapgenieTitle": "Bench - Colosseum of Fools",
+      "mapgenieRegion": "Colosseum of Fools",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "bench-9",
-      "mapgenieId": 470321,
-      "mapgenieTitle": "Bench - Ancient Basin",
-      "mapgenieRegion": "Ancient Basin",
-      "matchMethod": "region_match",
-      "matchScore": 135
+      "mapgenieId": 469845,
+      "mapgenieTitle": "Bench - Crystal Peak",
+      "mapgenieRegion": "Crystal Peak",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "bench-10",
-      "mapgenieId": 470157,
-      "mapgenieTitle": "Bench - Queen's Gardens",
-      "mapgenieRegion": "Queen's Gardens",
-      "matchMethod": "region_match",
-      "matchScore": 135
+      "mapgenieId": 469856,
+      "mapgenieTitle": "Bench - Crystal Peak",
+      "mapgenieRegion": "Crystal Peak",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "bench-11",
-      "mapgenieId": 469893,
-      "mapgenieTitle": "Bench - Howling Cliffs",
-      "mapgenieRegion": "Howling Cliffs",
-      "matchMethod": "region_match",
-      "matchScore": 135
+      "mapgenieId": 470178,
+      "mapgenieTitle": "Bench - Deepnest Hot Springs",
+      "mapgenieRegion": "Deepnest",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "bench-12",
+      "mapgenieId": 446807,
+      "mapgenieTitle": "Bench - Dirtmouth",
+      "mapgenieRegion": "Dirtmouth",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-13",
+      "mapgenieId": 538766,
+      "mapgenieTitle": "Bench - Herrah's Nest",
+      "mapgenieRegion": "Distant Village",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-14",
+      "mapgenieId": 470112,
+      "mapgenieTitle": "Bench - Deepnest",
+      "mapgenieRegion": "Failed Tramway",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-15",
+      "mapgenieId": 446817,
+      "mapgenieTitle": "Bench - Forgotten Crossroads Stag Station",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-16",
+      "mapgenieId": 469819,
+      "mapgenieTitle": "Bench - Forgotten Crossroads Hot Springs",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-17",
+      "mapgenieId": 469827,
+      "mapgenieTitle": "Bench - Salubra's Shop",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-18",
+      "mapgenieId": 470106,
+      "mapgenieTitle": "Bench - Leg Eater's Camp",
+      "mapgenieRegion": "Fungal Wastes",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-19",
+      "mapgenieId": 470333,
+      "mapgenieTitle": "Bench - Lower Godhome",
+      "mapgenieRegion": "Godhome",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-20",
+      "mapgenieId": 470334,
+      "mapgenieTitle": "Bench - Middle Godhome",
+      "mapgenieRegion": "Godhome",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-21",
+      "mapgenieId": 470335,
+      "mapgenieTitle": "Bench - Upper Godhome",
+      "mapgenieRegion": "Godhome",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-22",
+      "mapgenieId": 469895,
+      "mapgenieTitle": "Bench - Greenpath",
+      "mapgenieRegion": "Greenpath",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-23",
+      "mapgenieId": 469898,
+      "mapgenieTitle": "Bench - Greenpath",
+      "mapgenieRegion": "Greenpath",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-24",
+      "mapgenieId": 469908,
+      "mapgenieTitle": "Bench - Greenpath",
+      "mapgenieRegion": "Greenpath",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-25",
+      "mapgenieId": 469910,
+      "mapgenieTitle": "Bench - Greenpath Stag Station",
+      "mapgenieRegion": "Greenpath",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-26",
+      "mapgenieId": 469918,
+      "mapgenieTitle": "Bench - Lake of Unn",
+      "mapgenieRegion": "Greenpath",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-27",
+      "mapgenieId": 502690,
+      "mapgenieTitle": "Bench - Nailmaster Sheo",
+      "mapgenieRegion": "Greenpath",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-28",
+      "mapgenieId": 469893,
+      "mapgenieTitle": "Bench - Howling Cliffs",
+      "mapgenieRegion": "Howling Cliffs",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-29",
+      "mapgenieId": 470243,
+      "mapgenieTitle": "Bench - King's Station",
+      "mapgenieRegion": "King's Station",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-30",
       "mapgenieId": 470291,
       "mapgenieTitle": "Bench - Kingdom's Edge",
       "mapgenieRegion": "Kingdom's Edge",
-      "matchMethod": "region_match",
-      "matchScore": 135
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-31",
+      "mapgenieId": 470302,
+      "mapgenieTitle": "Bench - Kingdom's Edge",
+      "mapgenieRegion": "Kingdom's Edge",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-32",
+      "mapgenieId": 470131,
+      "mapgenieTitle": "Bench - Mantis Village",
+      "mapgenieRegion": "Mantis Village",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-33",
+      "mapgenieId": 470134,
+      "mapgenieTitle": "Bench - Fungal Wastes",
+      "mapgenieRegion": "Mantis Village",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-34",
+      "mapgenieId": 470230,
+      "mapgenieTitle": "Bench - Pleasure House",
+      "mapgenieRegion": "Pleasure House",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-35",
+      "mapgenieId": 470157,
+      "mapgenieTitle": "Bench - Queen's Gardens",
+      "mapgenieRegion": "Queen's Gardens",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-36",
+      "mapgenieId": 470158,
+      "mapgenieTitle": "Bench - Queen's Gardens",
+      "mapgenieRegion": "Queen's Gardens",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-37",
+      "mapgenieId": 470160,
+      "mapgenieTitle": "Bench - Queen's Gardens",
+      "mapgenieRegion": "Queen's Gardens",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-38",
+      "mapgenieId": 470101,
+      "mapgenieTitle": "Bench - Queen's Station",
+      "mapgenieRegion": "Queen's Station",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-39",
+      "mapgenieId": 469874,
+      "mapgenieTitle": "Bench - Resting Grounds Stag Station",
+      "mapgenieRegion": "Resting Grounds",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-40",
+      "mapgenieId": 469880,
+      "mapgenieTitle": "Bench - Resting Grounds",
+      "mapgenieRegion": "Resting Grounds",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-41",
+      "mapgenieId": 470255,
+      "mapgenieTitle": "Bench - Royal Waterways",
+      "mapgenieRegion": "Royal Waterways",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-42",
+      "mapgenieId": 470090,
+      "mapgenieTitle": "Bench - Teacher's Archives",
+      "mapgenieRegion": "Teacher's Archives",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-43",
+      "mapgenieId": 470308,
+      "mapgenieTitle": "Bench - The Hive",
+      "mapgenieRegion": "The Hive",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-44",
+      "mapgenieId": 470330,
+      "mapgenieTitle": "Bench - Lower White Palace",
+      "mapgenieRegion": "White Palace",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-45",
+      "mapgenieId": 470331,
+      "mapgenieTitle": "Bench - Middle White Palace",
+      "mapgenieRegion": "White Palace",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "bench-46",
+      "mapgenieId": 470332,
+      "mapgenieTitle": "Bench - Upper White Palace",
+      "mapgenieRegion": "White Palace",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "stag-1",
-      "mapgenieId": 469543,
-      "mapgenieTitle": "Stag Station - Dirtmouth",
-      "mapgenieRegion": "Dirtmouth",
-      "matchMethod": "region_match",
-      "matchScore": 135
-    },
-    {
-      "id": "stag-2",
-      "mapgenieId": 446819,
-      "mapgenieTitle": "Stag Station - Forgotten Crossroads",
-      "mapgenieRegion": "Forgotten Crossroads",
-      "matchMethod": "region_match",
-      "matchScore": 135
-    },
-    {
-      "id": "stag-3",
-      "mapgenieId": 469911,
-      "mapgenieTitle": "Stag Station - Greenpath",
-      "mapgenieRegion": "Greenpath",
-      "matchMethod": "region_match",
-      "matchScore": 135
-    },
-    {
-      "id": "stag-4",
-      "mapgenieId": 470100,
-      "mapgenieTitle": "Stag Station - Queen's Station",
-      "mapgenieRegion": "Queen's Station",
-      "matchMethod": "region_match",
-      "matchScore": 135
-    },
-    {
-      "id": "stag-5",
-      "mapgenieId": 470206,
-      "mapgenieTitle": "Stag Station - City Storerooms",
-      "mapgenieRegion": "City of Tears",
-      "matchMethod": "region_match",
-      "matchScore": 120
-    },
-    {
-      "id": "stag-6",
-      "mapgenieId": 469873,
-      "mapgenieTitle": "Stag Station - Resting Grounds",
-      "mapgenieRegion": "Resting Grounds",
-      "matchMethod": "region_match",
-      "matchScore": 135
-    },
-    {
-      "id": "stag-7",
-      "mapgenieId": 470199,
-      "mapgenieTitle": "Stag Station - Distant Village",
-      "mapgenieRegion": "Distant Village",
-      "matchMethod": "region_match",
-      "matchScore": 135
-    },
-    {
-      "id": "stag-8",
       "mapgenieId": 470319,
       "mapgenieTitle": "Stag Station - Hidden Station",
       "mapgenieRegion": "Ancient Basin",
-      "matchMethod": "region_match",
-      "matchScore": 105
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
-      "id": "stag-9",
+      "id": "stag-2",
+      "mapgenieId": 470206,
+      "mapgenieTitle": "Stag Station - City Storerooms",
+      "mapgenieRegion": "City of Tears",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "stag-3",
+      "mapgenieId": 469543,
+      "mapgenieTitle": "Stag Station - Dirtmouth",
+      "mapgenieRegion": "Dirtmouth",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "stag-4",
+      "mapgenieId": 470199,
+      "mapgenieTitle": "Stag Station - Distant Village",
+      "mapgenieRegion": "Distant Village",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "stag-5",
+      "mapgenieId": 446819,
+      "mapgenieTitle": "Stag Station - Forgotten Crossroads",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "stag-6",
+      "mapgenieId": 469911,
+      "mapgenieTitle": "Stag Station - Greenpath",
+      "mapgenieRegion": "Greenpath",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "stag-7",
       "mapgenieId": 469888,
       "mapgenieTitle": "Stag Station - Stag Nest",
       "mapgenieRegion": "Howling Cliffs",
-      "matchMethod": "region_match",
-      "matchScore": 105
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "stag-8",
+      "mapgenieId": 470242,
+      "mapgenieTitle": "Stag Station - King's Station",
+      "mapgenieRegion": "King's Station",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "stag-9",
+      "mapgenieId": 470156,
+      "mapgenieTitle": "Stag Station - Queen's Gardens",
+      "mapgenieRegion": "Queen's Gardens",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "stag-10",
+      "mapgenieId": 470100,
+      "mapgenieTitle": "Stag Station - Queen's Station",
+      "mapgenieRegion": "Queen's Station",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "stag-11",
+      "mapgenieId": 469873,
+      "mapgenieTitle": "Stag Station - Resting Grounds",
+      "mapgenieRegion": "Resting Grounds",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "springs-1",
-      "mapgenieId": 469820,
-      "mapgenieTitle": "Hot Spring",
-      "mapgenieRegion": "Forgotten Crossroads",
-      "matchMethod": "region_match",
-      "matchScore": 105
+      "mapgenieId": 470272,
+      "mapgenieTitle": "Hot Spring - Colosseum of Fools",
+      "mapgenieRegion": "Colosseum of Fools",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "springs-2",
-      "mapgenieId": 469820,
+      "mapgenieId": 470179,
       "mapgenieTitle": "Hot Spring",
-      "mapgenieRegion": "Forgotten Crossroads",
-      "matchMethod": "manual",
-      "matchScore": -5
+      "mapgenieRegion": "Deepnest",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "springs-3",
-      "mapgenieId": 470229,
-      "mapgenieTitle": "Hot Spring - Pleasure House",
-      "mapgenieRegion": "Pleasure House",
-      "matchMethod": "region_match",
-      "matchScore": 150
+      "mapgenieId": 469820,
+      "mapgenieTitle": "Hot Spring",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "springs-4",
-      "mapgenieId": 470179,
-      "mapgenieTitle": "Hot Spring",
-      "mapgenieRegion": "Deepnest",
-      "matchMethod": "region_match",
-      "matchScore": 105
+      "mapgenieId": 470338,
+      "mapgenieTitle": "Hot Spring - Lower Godhome",
+      "mapgenieRegion": "Godhome",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "springs-5",
-      "mapgenieId": 470179,
-      "mapgenieTitle": "Hot Spring",
-      "mapgenieRegion": "Deepnest",
-      "matchMethod": "manual",
-      "matchScore": -5
+      "mapgenieId": 470339,
+      "mapgenieTitle": "Hot Spring - Upper Godhome",
+      "mapgenieRegion": "Godhome",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "springs-6",
       "mapgenieId": 470229,
       "mapgenieTitle": "Hot Spring - Pleasure House",
       "mapgenieRegion": "Pleasure House",
-      "matchMethod": "manual",
-      "matchScore": -5
-    },
-    {
-      "id": "springs-7",
-      "mapgenieId": 469820,
-      "mapgenieTitle": "Hot Spring",
-      "mapgenieRegion": "Forgotten Crossroads",
-      "matchMethod": "manual",
-      "matchScore": -5
-    },
-    {
-      "id": "springs-8",
-      "mapgenieId": 470179,
-      "mapgenieTitle": "Hot Spring",
-      "mapgenieRegion": "Deepnest",
-      "matchMethod": "manual",
-      "matchScore": -5
-    },
-    {
-      "id": "springs-9",
-      "mapgenieId": 470272,
-      "mapgenieTitle": "Hot Spring - Colosseum of Fools",
-      "mapgenieRegion": "Colosseum of Fools",
-      "matchMethod": "manual",
-      "matchScore": -5
-    },
-    {
-      "id": "springs-10",
-      "mapgenieId": 469820,
-      "mapgenieTitle": "Hot Spring",
-      "mapgenieRegion": "Forgotten Crossroads",
-      "matchMethod": "manual",
-      "matchScore": -5
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "tram-1",
-      "mapgenieId": 469768,
-      "mapgenieTitle": "Tram Station - Kingdom's Edge",
-      "mapgenieRegion": "Kingdom's Edge",
-      "matchMethod": "region_match",
-      "matchScore": 135
-    },
-    {
-      "id": "tram-2",
-      "mapgenieId": 469765,
-      "mapgenieTitle": "Tram Station - Resting Grounds",
-      "mapgenieRegion": "Resting Grounds",
-      "matchMethod": "manual",
-      "matchScore": 135
-    },
-    {
-      "id": "tram-3",
-      "mapgenieId": 469766,
-      "mapgenieTitle": "Tram Station - Deepnest",
-      "mapgenieRegion": "Deepnest",
-      "matchMethod": "region_match",
-      "matchScore": 135
-    },
-    {
-      "id": "tram-4",
       "mapgenieId": 469767,
       "mapgenieTitle": "Tram Station - Ancient Basin",
       "mapgenieRegion": "Ancient Basin",
-      "matchMethod": "region_match",
-      "matchScore": 135
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "tram-2",
+      "mapgenieId": 469766,
+      "mapgenieTitle": "Tram Station - Deepnest",
+      "mapgenieRegion": "Deepnest",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "tram-3",
+      "mapgenieId": 446815,
+      "mapgenieTitle": "Tram Station - Forgotten Crossroads",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "tram-4",
+      "mapgenieId": 469768,
+      "mapgenieTitle": "Tram Station - Kingdom's Edge",
+      "mapgenieRegion": "Kingdom's Edge",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "tram-5",
+      "mapgenieId": 469765,
+      "mapgenieTitle": "Tram Station - Resting Grounds",
+      "mapgenieRegion": "Resting Grounds",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "grub-1",
-      "mapgenieId": 433668,
-      "mapgenieTitle": "Captive Grub",
-      "mapgenieRegion": "Forgotten Crossroads",
-      "matchMethod": "region_match",
-      "matchScore": 105
-    },
-    {
-      "id": "grub-2",
-      "mapgenieId": 433674,
-      "mapgenieTitle": "Captive Grub",
-      "mapgenieRegion": "Greenpath",
-      "matchMethod": "region_match",
-      "matchScore": 105
-    },
-    {
-      "id": "grub-3",
-      "mapgenieId": 433683,
-      "mapgenieTitle": "Captive Grub",
-      "mapgenieRegion": "Fungal Wastes",
-      "matchMethod": "region_match",
-      "matchScore": 105
-    },
-    {
-      "id": "grub-4",
-      "mapgenieId": 433685,
-      "mapgenieTitle": "Captive Grub",
-      "mapgenieRegion": "City of Tears",
-      "matchMethod": "region_match",
-      "matchScore": 105
-    },
-    {
-      "id": "grub-5",
-      "mapgenieId": 433709,
-      "mapgenieTitle": "Captive Grub",
-      "mapgenieRegion": "Deepnest",
-      "matchMethod": "region_match",
-      "matchScore": 105
-    },
-    {
-      "id": "grub-6",
       "mapgenieId": 433714,
       "mapgenieTitle": "Captive Grub",
       "mapgenieRegion": "Ancient Basin",
-      "matchMethod": "region_match",
-      "matchScore": 105
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
-      "id": "grub-7",
+      "id": "grub-2",
+      "mapgenieId": 433715,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Ancient Basin",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-3",
+      "mapgenieId": 433685,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "City of Tears",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-4",
+      "mapgenieId": 433686,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "City of Tears",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-5",
+      "mapgenieId": 433690,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "City of Tears",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-6",
       "mapgenieId": 433680,
       "mapgenieTitle": "Captive Grub",
       "mapgenieRegion": "Crystal Peak",
-      "matchMethod": "region_match",
-      "matchScore": 105
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-7",
+      "mapgenieId": 433693,
+      "mapgenieTitle": "Captive Grub (Mimic)",
+      "mapgenieRegion": "Crystal Peak",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "grub-8",
-      "mapgenieId": 433699,
+      "mapgenieId": 433694,
       "mapgenieTitle": "Captive Grub",
-      "mapgenieRegion": "Resting Grounds",
-      "matchMethod": "region_match",
-      "matchScore": 105
+      "mapgenieRegion": "Crystal Peak",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "grub-9",
-      "mapgenieId": 433700,
+      "mapgenieId": 433696,
       "mapgenieTitle": "Captive Grub",
-      "mapgenieRegion": "Royal Waterways",
-      "matchMethod": "region_match",
-      "matchScore": 105
+      "mapgenieRegion": "Crystal Peak",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "grub-10",
-      "mapgenieId": 433716,
+      "mapgenieId": 433697,
       "mapgenieTitle": "Captive Grub",
-      "mapgenieRegion": "The Hive",
-      "matchMethod": "region_match",
-      "matchScore": 155
+      "mapgenieRegion": "Crystal Peak",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "grub-11",
-      "mapgenieId": 433707,
+      "mapgenieId": 433698,
       "mapgenieTitle": "Captive Grub",
-      "mapgenieRegion": "Queen's Gardens",
-      "matchMethod": "region_match",
-      "matchScore": 105
+      "mapgenieRegion": "Crystal Peak",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "grub-12",
+      "mapgenieId": 433681,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Crystallised Mound",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-13",
+      "mapgenieId": 433709,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Deepnest",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-14",
+      "mapgenieId": 433710,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Deepnest",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-15",
+      "mapgenieId": 433711,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Deepnest",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-16",
+      "mapgenieId": 433712,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Deepnest",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-17",
+      "mapgenieId": 433713,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Distant Village",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-18",
+      "mapgenieId": 433668,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-19",
+      "mapgenieId": 433669,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-20",
+      "mapgenieId": 433670,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-21",
+      "mapgenieId": 433672,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-22",
+      "mapgenieId": 433673,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Forgotten Crossroads",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-23",
+      "mapgenieId": 433683,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Fungal Wastes",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-24",
+      "mapgenieId": 433684,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Fungal Wastes",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-25",
+      "mapgenieId": 433674,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Greenpath",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-26",
+      "mapgenieId": 433675,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Greenpath",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-27",
+      "mapgenieId": 433676,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Greenpath",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-28",
+      "mapgenieId": 433679,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Greenpath",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-29",
       "mapgenieId": 433703,
       "mapgenieTitle": "Captive Grub",
       "mapgenieRegion": "Howling Cliffs",
-      "matchMethod": "region_match",
-      "matchScore": 105
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-30",
+      "mapgenieId": 433702,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Isma's Grove",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-31",
+      "mapgenieId": 433704,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Kingdom's Edge",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-32",
+      "mapgenieId": 433705,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Kingdom's Edge",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-33",
+      "mapgenieId": 433707,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Queen's Gardens",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-34",
+      "mapgenieId": 433708,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Queen's Gardens",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-35",
+      "mapgenieId": 433718,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Queen's Gardens",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-36",
+      "mapgenieId": 433699,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Resting Grounds",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-37",
+      "mapgenieId": 433700,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Royal Waterways",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-38",
+      "mapgenieId": 433701,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Royal Waterways",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-39",
+      "mapgenieId": 433689,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Soul Sanctum",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-40",
+      "mapgenieId": 433706,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Teacher's Archives",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-41",
+      "mapgenieId": 433716,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "The Hive",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-42",
+      "mapgenieId": 433717,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "The Hive",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-43",
+      "mapgenieId": 428537,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Tower of Love",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-44",
+      "mapgenieId": 428538,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Tower of Love",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-45",
+      "mapgenieId": 428539,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Tower of Love",
+      "matchMethod": "export",
+      "matchScore": 100
+    },
+    {
+      "id": "grub-46",
+      "mapgenieId": 433691,
+      "mapgenieTitle": "Captive Grub",
+      "mapgenieRegion": "Watcher's Spire",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "cocoon-1",
       "mapgenieId": 469810,
       "mapgenieTitle": "Lifeblood Cocoon",
       "mapgenieRegion": "Ancestral Mound",
-      "matchMethod": "manual",
-      "matchScore": 105
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "cocoon-2",
-      "mapgenieId": 469912,
+      "mapgenieId": 470189,
       "mapgenieTitle": "Lifeblood Cocoon",
-      "mapgenieRegion": "Greenpath",
-      "matchMethod": "region_match",
-      "matchScore": 105
+      "mapgenieRegion": "Deepnest",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "cocoon-3",
-      "mapgenieId": 470129,
+      "mapgenieId": 470188,
       "mapgenieTitle": "Lifeblood Cocoon",
-      "mapgenieRegion": "Mantis Village",
-      "matchMethod": "nearest",
-      "matchScore": -5
+      "mapgenieRegion": "Failed Tramway",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "cocoon-4",
-      "mapgenieId": 470129,
+      "mapgenieId": 470095,
       "mapgenieTitle": "Lifeblood Cocoon",
-      "mapgenieRegion": "Mantis Village",
-      "matchMethod": "manual",
-      "matchScore": -5
+      "mapgenieRegion": "Fog Canyon",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "cocoon-5",
-      "mapgenieId": 470188,
+      "mapgenieId": 469912,
       "mapgenieTitle": "Lifeblood Cocoon",
-      "mapgenieRegion": "Failed Tramway",
-      "matchMethod": "region_match",
-      "matchScore": 105
+      "mapgenieRegion": "Greenpath",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "cocoon-6",
-      "mapgenieId": 470188,
+      "mapgenieId": 428546,
       "mapgenieTitle": "Lifeblood Cocoon",
-      "mapgenieRegion": "Failed Tramway",
-      "matchMethod": "manual",
-      "matchScore": -5
+      "mapgenieRegion": "King's Pass",
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "cocoon-7",
       "mapgenieId": 470284,
       "mapgenieTitle": "Lifeblood Cocoon",
       "mapgenieRegion": "Kingdom's Edge",
-      "matchMethod": "region_match",
-      "matchScore": 105
+      "matchMethod": "export",
+      "matchScore": 100
     },
     {
       "id": "cocoon-8",
-      "mapgenieId": 470095,
+      "mapgenieId": 470129,
       "mapgenieTitle": "Lifeblood Cocoon",
-      "mapgenieRegion": "Fog Canyon",
-      "matchMethod": "manual",
-      "matchScore": -5
-    },
-    {
-      "id": "cocoon-9",
-      "mapgenieId": 470284,
-      "mapgenieTitle": "Lifeblood Cocoon",
-      "mapgenieRegion": "Kingdom's Edge",
-      "matchMethod": "manual",
-      "matchScore": -5
-    },
-    {
-      "id": "cocoon-10",
-      "mapgenieId": 470095,
-      "mapgenieTitle": "Lifeblood Cocoon",
-      "mapgenieRegion": "Fog Canyon",
-      "matchMethod": "region_match",
-      "matchScore": 105
+      "mapgenieRegion": "Mantis Village",
+      "matchMethod": "export",
+      "matchScore": 100
     }
   ]
 }

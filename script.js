@@ -1,48 +1,48 @@
 const MAP = {
   width: 4498,
   height: 2901,
-  src: "assets/hollownest-basemap/hallownest.jpeg",
+  src: 'assets/hollownest-basemap/hallownest.jpeg',
 };
 
 const CATEGORIES = [
   {
-    id: "bench",
-    label: "Benches",
-    icon: "assets/pins/Map_Pin_Bench_green.webp",
+    id: 'bench',
+    label: 'Benches',
+    icon: 'assets/pins/Map_Pin_Bench_green.webp',
   },
   {
-    id: "stag",
-    label: "Stag Stations",
-    icon: "assets/pins/Map_Pin_Stag.webp",
+    id: 'stag',
+    label: 'Stag Stations',
+    icon: 'assets/pins/Map_Pin_Stag.webp',
   },
   {
-    id: "springs",
-    label: "Hot Springs",
-    icon: "assets/pins/Map_Pin_Springs.webp",
+    id: 'springs',
+    label: 'Hot Springs',
+    icon: 'assets/pins/Map_Pin_Springs.webp',
   },
   {
-    id: "tram",
-    label: "Trams",
-    icon: "assets/pins/Map_Pin_Tram.webp",
+    id: 'tram',
+    label: 'Trams',
+    icon: 'assets/pins/Map_Pin_Tram.webp',
   },
   {
-    id: "grub",
-    label: "Grubs",
-    icon: "assets/pins/Map_Pin_Grub.webp",
+    id: 'grub',
+    label: 'Grubs',
+    icon: 'assets/pins/Map_Pin_Grub.webp',
   },
   {
-    id: "cocoon",
-    label: "Lifeblood Cocoons",
-    icon: "assets/pins/Map_Pin_Cocoon.webp",
+    id: 'cocoon',
+    label: 'Lifeblood Cocoons',
+    icon: 'assets/pins/Map_Pin_Cocoon.webp',
   },
 ];
 
 const categoryEnabled = Object.fromEntries(
-  CATEGORIES.map((cat) => [cat.id, true])
+  CATEGORIES.map((cat) => [cat.id, true]),
 );
 
 const categoryIconById = Object.fromEntries(
-  CATEGORIES.map((cat) => [cat.id, cat.icon])
+  CATEGORIES.map((cat) => [cat.id, cat.icon]),
 );
 
 let MARKERS = [];
@@ -81,8 +81,17 @@ const MAX_SCALE = 4;
 const MIN_SCALE = 0.2;
 const ZOOM_SENSITIVITY = 0.0016;
 const ZOOM_EASING = 0.24;
-const SIDEBAR_STORAGE_KEY = "hk-map-sidebar-collapsed";
+const SIDEBAR_STORAGE_KEY = 'hk-map-sidebar-collapsed';
 const SIDEBAR_HIDE_BREAKPOINT = 900;
+
+// Pin sizing — pins live inside the zoomed layer so they would shrink/grow
+// proportionally with the map. We smoothly interpolate their on-screen size
+// between PIN_MAX_VISUAL_PX (fully zoomed out) and PIN_MIN_VISUAL_PX (fully
+// zoomed in) using a smoothstep curve, so pins are bounded by fixed limits
+// without producing a visible "knee" at the endpoints.
+const PIN_BASE_SIZE_PX = 50; // must match .map-pin width/height in CSS
+const PIN_MIN_VISUAL_PX = 100; // smallest on-screen pin size (at MAX_SCALE)
+const PIN_MAX_VISUAL_PX = 84; // largest on-screen pin size (at MIN_SCALE)
 
 function pixelToPercent(x, y, width = MAP.width, height = MAP.height) {
   return {
@@ -108,7 +117,7 @@ function normalizeMarkers(rawMarkers, mapMeta) {
 }
 
 async function loadMarkerData() {
-  const response = await fetch("data/markers.json");
+  const response = await fetch('data/markers.json');
   if (!response.ok) {
     throw new Error(`Failed to load markers.json (${response.status})`);
   }
@@ -128,8 +137,39 @@ function getCategoryCount(categoryId) {
   return MARKERS.filter((m) => m.category === categoryId).length;
 }
 
+function smoothstep(t) {
+  // Hermite smoothstep: zero slope at both endpoints, smooth S-curve between.
+  const x = Math.min(1, Math.max(0, t));
+  return x * x * (3 - 2 * x);
+}
+
+function computePinScale(currentScale) {
+  const safeScale = Math.max(currentScale, 1e-6);
+  // Normalize the current zoom to a 0..1 range on a log scale, because zoom
+  // is multiplicative (each step doubles/halves), so log space feels even.
+  const logMin = Math.log(MIN_SCALE);
+  const logMax = Math.log(MAX_SCALE);
+  const rawT = (Math.log(safeScale) - logMin) / (logMax - logMin);
+  // Smoothstep ensures the curve flattens out exactly at the min/max bounds,
+  // so the on-screen pin size approaches PIN_MAX/PIN_MIN gradually without
+  // abrupt clamping when reaching MIN_SCALE or MAX_SCALE.
+  const eased = smoothstep(rawT);
+  const desiredVisualPx =
+    PIN_MAX_VISUAL_PX + eased * (PIN_MIN_VISUAL_PX - PIN_MAX_VISUAL_PX);
+  // Pins live inside the zoomed layer, so on-screen size equals
+  // PIN_BASE_SIZE_PX * mapScale * pinScale. Solve for pinScale.
+  return desiredVisualPx / (PIN_BASE_SIZE_PX * safeScale);
+}
+
+function updatePinScale() {
+  if (!markersLayerEl) return;
+  const pinScale = computePinScale(scale);
+  markersLayerEl.style.setProperty('--pin-scale', pinScale.toFixed(4));
+}
+
 function applyTransform() {
   transformEl.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  updatePinScale();
 }
 
 function stopZoomAnimation() {
@@ -213,21 +253,21 @@ function onViewportResize() {
 function syncSidebarToggleUI(isCollapsed) {
   if (!sidebarToggleBtn) return;
   const expanded = String(!isCollapsed);
-  sidebarToggleBtn.setAttribute("aria-expanded", expanded);
+  sidebarToggleBtn.setAttribute('aria-expanded', expanded);
   sidebarToggleBtn.setAttribute(
-    "aria-label",
-    isCollapsed ? "Expand sidebar" : "Collapse sidebar"
+    'aria-label',
+    isCollapsed ? 'Expand sidebar' : 'Collapse sidebar',
   );
 }
 
 function toggleSidebar(forceCollapsed) {
   if (!appEl || isSidebarAutoHidden) return;
   const shouldCollapse =
-    typeof forceCollapsed === "boolean"
+    typeof forceCollapsed === 'boolean'
       ? forceCollapsed
-      : !appEl.classList.contains("sidebar-collapsed");
+      : !appEl.classList.contains('sidebar-collapsed');
 
-  appEl.classList.toggle("sidebar-collapsed", shouldCollapse);
+  appEl.classList.toggle('sidebar-collapsed', shouldCollapse);
   desktopSidebarCollapsed = shouldCollapse;
   syncSidebarToggleUI(shouldCollapse);
   window.localStorage.setItem(SIDEBAR_STORAGE_KEY, String(shouldCollapse));
@@ -238,17 +278,20 @@ function toggleSidebar(forceCollapsed) {
 
 function syncMobileSidebarToggleUI() {
   if (!mobileSidebarToggleBtn) return;
-  mobileSidebarToggleBtn.setAttribute("aria-expanded", String(isMobileSidebarOpen));
   mobileSidebarToggleBtn.setAttribute(
-    "aria-label",
-    isMobileSidebarOpen ? "Close filters sidebar" : "Open filters sidebar"
+    'aria-expanded',
+    String(isMobileSidebarOpen),
+  );
+  mobileSidebarToggleBtn.setAttribute(
+    'aria-label',
+    isMobileSidebarOpen ? 'Close filters sidebar' : 'Open filters sidebar',
   );
 }
 
 function setMobileSidebarOpen(isOpen) {
   if (!appEl) return;
   isMobileSidebarOpen = isOpen && isSidebarAutoHidden;
-  appEl.classList.toggle("mobile-sidebar-open", isMobileSidebarOpen);
+  appEl.classList.toggle('mobile-sidebar-open', isMobileSidebarOpen);
   syncMobileSidebarToggleUI();
 }
 
@@ -257,18 +300,18 @@ function applyResponsiveSidebarVisibility() {
   const wasAutoHidden = isSidebarAutoHidden;
   const shouldHide = window.innerWidth <= SIDEBAR_HIDE_BREAKPOINT;
   isSidebarAutoHidden = shouldHide;
-  appEl.classList.toggle("sidebar-hidden", shouldHide);
+  appEl.classList.toggle('sidebar-hidden', shouldHide);
 
   if (shouldHide && !wasAutoHidden) {
-    desktopSidebarCollapsed = appEl.classList.contains("sidebar-collapsed");
-    appEl.classList.remove("sidebar-collapsed");
+    desktopSidebarCollapsed = appEl.classList.contains('sidebar-collapsed');
+    appEl.classList.remove('sidebar-collapsed');
     syncSidebarToggleUI(false);
   } else if (!shouldHide && wasAutoHidden) {
-    appEl.classList.toggle("sidebar-collapsed", desktopSidebarCollapsed);
+    appEl.classList.toggle('sidebar-collapsed', desktopSidebarCollapsed);
     syncSidebarToggleUI(desktopSidebarCollapsed);
     window.localStorage.setItem(
       SIDEBAR_STORAGE_KEY,
-      String(desktopSidebarCollapsed)
+      String(desktopSidebarCollapsed),
     );
   }
 
@@ -280,7 +323,7 @@ function applyResponsiveSidebarVisibility() {
 
   if (!sidebarToggleBtn) return;
   sidebarToggleBtn.disabled = shouldHide;
-  sidebarToggleBtn.setAttribute("aria-hidden", String(shouldHide));
+  sidebarToggleBtn.setAttribute('aria-hidden', String(shouldHide));
 }
 
 function onWheel(event) {
@@ -296,7 +339,7 @@ function onWheel(event) {
   const delta = -event.deltaY * ZOOM_SENSITIVITY;
   const newScale = Math.min(
     MAX_SCALE,
-    Math.max(MIN_SCALE, targetScale * Math.exp(delta))
+    Math.max(MIN_SCALE, targetScale * Math.exp(delta)),
   );
 
   targetTranslateX = mouseX - mapX * newScale;
@@ -308,7 +351,7 @@ function onWheel(event) {
 
 function onPointerDown(event) {
   if (event.button !== 0) return;
-  if (event.target.closest(".map-pin")) return;
+  if (event.target.closest('.map-pin')) return;
 
   stopZoomAnimation();
   targetScale = scale;
@@ -321,7 +364,7 @@ function onPointerDown(event) {
   dragStartY = event.clientY;
   dragOriginX = translateX;
   dragOriginY = translateY;
-  viewportEl.classList.add("is-dragging");
+  viewportEl.classList.add('is-dragging');
   viewportEl.setPointerCapture(event.pointerId);
 }
 
@@ -340,14 +383,14 @@ function onPointerUp(event) {
 
   isDragging = false;
   activePointerId = null;
-  viewportEl.classList.remove("is-dragging");
+  viewportEl.classList.remove('is-dragging');
   viewportEl.releasePointerCapture(event.pointerId);
 }
 
 function showTooltip(name, clientX, clientY) {
   tooltipEl.textContent = name;
-  tooltipEl.classList.add("is-visible");
-  tooltipEl.setAttribute("aria-hidden", "false");
+  tooltipEl.classList.add('is-visible');
+  tooltipEl.setAttribute('aria-hidden', 'false');
 
   const offset = 14;
   let left = clientX + offset;
@@ -366,8 +409,8 @@ function showTooltip(name, clientX, clientY) {
 }
 
 function hideTooltip() {
-  tooltipEl.classList.remove("is-visible");
-  tooltipEl.setAttribute("aria-hidden", "true");
+  tooltipEl.classList.remove('is-visible');
+  tooltipEl.setAttribute('aria-hidden', 'true');
 }
 
 function updateCategoryRowUI(categoryId) {
@@ -375,9 +418,9 @@ function updateCategoryRowUI(categoryId) {
   if (!row) return;
 
   const enabled = categoryEnabled[categoryId];
-  row.classList.toggle("is-enabled", enabled);
-  row.classList.toggle("is-disabled", !enabled);
-  row.setAttribute("aria-pressed", String(enabled));
+  row.classList.toggle('is-enabled', enabled);
+  row.classList.toggle('is-disabled', !enabled);
+  row.setAttribute('aria-pressed', String(enabled));
 }
 
 function toggleCategory(categoryId) {
@@ -388,26 +431,26 @@ function toggleCategory(categoryId) {
 
 function updateMarkerVisibility(categoryId) {
   const pins = markersLayerEl.querySelectorAll(
-    `.map-pin[data-category="${categoryId}"]`
+    `.map-pin[data-category="${categoryId}"]`,
   );
   const visible = categoryEnabled[categoryId];
   pins.forEach((pin) => {
-    pin.classList.toggle("is-hidden", !visible);
+    pin.classList.toggle('is-hidden', !visible);
   });
 }
 
 function renderSidebar() {
-  categoryListEl.innerHTML = "";
+  categoryListEl.innerHTML = '';
 
   CATEGORIES.forEach((cat) => {
     const count = getCategoryCount(cat.id);
     const enabled = categoryEnabled[cat.id];
 
-    const row = document.createElement("button");
-    row.type = "button";
-    row.className = `category-row ${enabled ? "is-enabled" : "is-disabled"}`;
+    const row = document.createElement('button');
+    row.type = 'button';
+    row.className = `category-row ${enabled ? 'is-enabled' : 'is-disabled'}`;
     row.dataset.category = cat.id;
-    row.setAttribute("aria-pressed", String(enabled));
+    row.setAttribute('aria-pressed', String(enabled));
 
     row.innerHTML = `
       <span class="category-checkbox" aria-hidden="true"></span>
@@ -416,44 +459,48 @@ function renderSidebar() {
       <span class="category-count">${count}</span>
     `;
 
-    row.addEventListener("click", () => toggleCategory(cat.id));
+    row.addEventListener('click', () => toggleCategory(cat.id));
     categoryListEl.appendChild(row);
   });
 }
 
 function createPinElement(marker) {
-  const pin = document.createElement("button");
-  pin.type = "button";
-  pin.className = "map-pin";
+  const pin = document.createElement('button');
+  pin.type = 'button';
+  pin.className = 'map-pin';
   pin.dataset.category = marker.category;
   pin.dataset.id = marker.id;
   pin.style.left = `${marker.x}%`;
   pin.style.top = `${marker.y}%`;
-  pin.setAttribute("aria-label", marker.name);
+  pin.setAttribute('aria-label', marker.name);
 
-  const icon = document.createElement("img");
+  const icon = document.createElement('img');
   icon.src = categoryIconById[marker.category];
-  icon.alt = "";
+  icon.alt = '';
   pin.appendChild(icon);
 
   if (!categoryEnabled[marker.category]) {
-    pin.classList.add("is-hidden");
+    pin.classList.add('is-hidden');
   }
 
-  pin.addEventListener("mouseenter", (e) => showTooltip(marker.name, e.clientX, e.clientY));
-  pin.addEventListener("mousemove", (e) => showTooltip(marker.name, e.clientX, e.clientY));
-  pin.addEventListener("mouseleave", hideTooltip);
-  pin.addEventListener("focus", () => {
+  pin.addEventListener('mouseenter', (e) =>
+    showTooltip(marker.name, e.clientX, e.clientY),
+  );
+  pin.addEventListener('mousemove', (e) =>
+    showTooltip(marker.name, e.clientX, e.clientY),
+  );
+  pin.addEventListener('mouseleave', hideTooltip);
+  pin.addEventListener('focus', () => {
     const rect = pin.getBoundingClientRect();
     showTooltip(marker.name, rect.left + rect.width / 2, rect.top);
   });
-  pin.addEventListener("blur", hideTooltip);
+  pin.addEventListener('blur', hideTooltip);
 
   return pin;
 }
 
 function renderMarkers() {
-  markersLayerEl.innerHTML = "";
+  markersLayerEl.innerHTML = '';
   const fragment = document.createDocumentFragment();
 
   MARKERS.forEach((marker) => {
@@ -464,15 +511,15 @@ function renderMarkers() {
 }
 
 function initPanZoom() {
-  viewportEl.addEventListener("wheel", onWheel, { passive: false });
-  viewportEl.addEventListener("pointerdown", onPointerDown);
-  viewportEl.addEventListener("pointermove", onPointerMove);
-  viewportEl.addEventListener("pointerup", onPointerUp);
-  viewportEl.addEventListener("pointercancel", onPointerUp);
-  viewportEl.addEventListener("lostpointercapture", onPointerUp);
+  viewportEl.addEventListener('wheel', onWheel, { passive: false });
+  viewportEl.addEventListener('pointerdown', onPointerDown);
+  viewportEl.addEventListener('pointermove', onPointerMove);
+  viewportEl.addEventListener('pointerup', onPointerUp);
+  viewportEl.addEventListener('pointercancel', onPointerUp);
+  viewportEl.addEventListener('lostpointercapture', onPointerUp);
 
-  resetViewBtn.addEventListener("click", fitMapToViewport);
-  window.addEventListener("resize", () => {
+  resetViewBtn.addEventListener('click', fitMapToViewport);
+  window.addEventListener('resize', () => {
     applyResponsiveSidebarVisibility();
     onViewportResize();
   });
@@ -480,46 +527,47 @@ function initPanZoom() {
 
 function initSidebarToggle() {
   if (!sidebarToggleBtn) return;
-  const isCollapsed = window.localStorage.getItem(SIDEBAR_STORAGE_KEY) === "true";
+  const isCollapsed =
+    window.localStorage.getItem(SIDEBAR_STORAGE_KEY) === 'true';
   desktopSidebarCollapsed = isCollapsed;
   toggleSidebar(isCollapsed);
-  sidebarToggleBtn.addEventListener("click", () => toggleSidebar());
+  sidebarToggleBtn.addEventListener('click', () => toggleSidebar());
 }
 
 function initMobileSidebarToggle() {
   if (!mobileSidebarToggleBtn) return;
   syncMobileSidebarToggleUI();
-  mobileSidebarToggleBtn.addEventListener("click", () =>
-    setMobileSidebarOpen(!isMobileSidebarOpen)
+  mobileSidebarToggleBtn.addEventListener('click', () =>
+    setMobileSidebarOpen(!isMobileSidebarOpen),
   );
 }
 
 function showLoadError(message) {
-  const stage = document.querySelector(".map-stage");
+  const stage = document.querySelector('.map-stage');
   if (!stage) return;
-  const banner = document.createElement("p");
-  banner.className = "map-error";
+  const banner = document.createElement('p');
+  banner.className = 'map-error';
   banner.textContent = message;
   stage.prepend(banner);
 }
 
 async function init() {
-  appEl = document.querySelector(".app");
-  viewportEl = document.getElementById("map-viewport");
-  transformEl = document.getElementById("map-transform");
-  markersLayerEl = document.getElementById("markers-layer");
-  categoryListEl = document.getElementById("category-list");
-  tooltipEl = document.getElementById("tooltip");
-  resetViewBtn = document.getElementById("reset-view");
-  sidebarToggleBtn = document.getElementById("sidebar-toggle");
-  mobileSidebarToggleBtn = document.getElementById("mobile-sidebar-toggle");
+  appEl = document.querySelector('.app');
+  viewportEl = document.getElementById('map-viewport');
+  transformEl = document.getElementById('map-transform');
+  markersLayerEl = document.getElementById('markers-layer');
+  categoryListEl = document.getElementById('category-list');
+  tooltipEl = document.getElementById('tooltip');
+  resetViewBtn = document.getElementById('reset-view');
+  sidebarToggleBtn = document.getElementById('sidebar-toggle');
+  mobileSidebarToggleBtn = document.getElementById('mobile-sidebar-toggle');
 
   try {
     MARKERS = await loadMarkerData();
   } catch (error) {
     console.error(error);
     showLoadError(
-      "Could not load marker data. Serve this project over HTTP (e.g. npx serve) so data/markers.json can be fetched."
+      'Could not load marker data. Serve this project over HTTP (e.g. npx serve) so data/markers.json can be fetched.',
     );
     return;
   }
@@ -531,12 +579,12 @@ async function init() {
   initMobileSidebarToggle();
   applyResponsiveSidebarVisibility();
 
-  const basemap = document.getElementById("basemap");
+  const basemap = document.getElementById('basemap');
   if (basemap.complete) {
     fitMapToViewport();
   } else {
-    basemap.addEventListener("load", fitMapToViewport);
+    basemap.addEventListener('load', fitMapToViewport);
   }
 }
 
-document.addEventListener("DOMContentLoaded", init);
+document.addEventListener('DOMContentLoaded', init);

@@ -213,7 +213,12 @@ body {
 }
 
 .app.sidebar-collapsed .map-sidebar {
-  flex-basis: 64px;
+  flex: 0 0 0;
+  width: 0;
+  min-width: 0;
+  border-right: none;
+  background: transparent;
+  overflow: visible;
 }
 
 .app.sidebar-collapsed .sidebar-title,
@@ -221,6 +226,7 @@ body {
 .app.sidebar-collapsed .category-label,
 .app.sidebar-collapsed .category-count,
 .app.sidebar-collapsed .category-checkbox,
+.app.sidebar-collapsed .category-list,
 .app.sidebar-collapsed #reset-view {
   display: none;
 }
@@ -232,8 +238,17 @@ body {
 }
 
 .app.sidebar-collapsed .sidebar-header {
-  padding-left: 10px;
-  padding-right: 10px;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 35;
+  justify-content: center;
+  padding: 0;
+  border-bottom: none;
+}
+
+.app.sidebar-collapsed .sidebar-header > div {
+  display: none;
 }
 
 .app.sidebar-collapsed .sidebar-toggle-btn {
@@ -352,6 +367,8 @@ body {
 }
 
 .markers-layer {
+  /* --pin-scale is updated from JS based on zoom level; pin transforms read this. */
+  --pin-scale: 1;
   position: absolute;
   top: 0;
   left: 0;
@@ -362,18 +379,17 @@ body {
 
 .map-pin {
   position: absolute;
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   margin: 0;
   padding: 0;
   border: none;
   background: transparent;
   cursor: pointer;
   pointer-events: auto;
-  transform: translate(-50%, -100%);
-  transition:
-    transform 0.12s ease,
-    filter 0.12s ease;
+  transform: translate(-50%, -100%) scale(var(--pin-scale, 1));
+  transform-origin: 50% 100%;
+  transition: filter 0.12s ease;
   z-index: 1;
 }
 
@@ -387,7 +403,7 @@ body {
 
 .map-pin:hover,
 .map-pin:focus-visible {
-  transform: translate(-50%, -100%) scale(1.2);
+  transform: translate(-50%, -100%) scale(calc(var(--pin-scale, 1) * 1.2));
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.8));
   z-index: 2;
 }
