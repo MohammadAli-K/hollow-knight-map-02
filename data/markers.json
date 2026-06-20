@@ -5,7 +5,12 @@
     "src": "assets/hollownest-basemap/hallownest.jpeg",
     "coordinateSystem": {
       "type": "mapgenie-mapbox",
-      "bounds": [-1.4, 0, 0, 1.4]
+      "bounds": [
+        -1.4,
+        0,
+        0,
+        1.4
+      ]
     }
   },
   "markers": [
@@ -61,8 +66,8 @@
       "id": "bench-4",
       "category": "bench",
       "name": "Bench - City Storerooms",
-      "x": 2296,
-      "y": 1376,
+      "x": 2400,
+      "y": 1337,
       "ref": {
         "source": "mapgenie",
         "mapgenieId": 470208,
@@ -77,8 +82,8 @@
       "id": "bench-5",
       "category": "bench",
       "name": "Bench - City of Tears",
-      "x": 2313,
-      "y": 1485,
+      "x": 2650,
+      "y": 1480,
       "ref": {
         "source": "mapgenie",
         "mapgenieId": 470217,
@@ -93,8 +98,8 @@
       "id": "bench-6",
       "category": "bench",
       "name": "Bench - City of Tears",
-      "x": 2421,
-      "y": 1426,
+      "x": 2435,
+      "y": 1655,
       "ref": {
         "source": "mapgenie",
         "mapgenieId": 470219,
@@ -109,8 +114,8 @@
       "id": "bench-7",
       "category": "bench",
       "name": "Bench - Watcher's Spire",
-      "x": 2537,
-      "y": 1474,
+      "x": 2880,
+      "y": 1625,
       "ref": {
         "source": "mapgenie",
         "mapgenieId": 470225,
@@ -125,8 +130,8 @@
       "id": "bench-8",
       "category": "bench",
       "name": "Bench - Colosseum of Fools",
-      "x": 2920,
-      "y": 1382,
+      "x": 3650,
+      "y": 1350,
       "ref": {
         "source": "mapgenie",
         "mapgenieId": 470273,
@@ -141,8 +146,8 @@
       "id": "bench-9",
       "category": "bench",
       "name": "Bench - Crystal Peak",
-      "x": 2810,
-      "y": 695,
+      "x": 3112,
+      "y": 709,
       "ref": {
         "source": "mapgenie",
         "mapgenieId": 469845,
@@ -461,8 +466,8 @@
       "id": "bench-29",
       "category": "bench",
       "name": "Bench - King's Station",
-      "x": 2827,
-      "y": 1515,
+      "x": 3460,
+      "y": 1747,
       "ref": {
         "source": "mapgenie",
         "mapgenieId": 470243,
@@ -477,8 +482,8 @@
       "id": "bench-30",
       "category": "bench",
       "name": "Bench - Kingdom's Edge",
-      "x": 3116,
-      "y": 1485,
+      "x": 4045,
+      "y": 1657,
       "ref": {
         "source": "mapgenie",
         "mapgenieId": 470291,
@@ -493,8 +498,8 @@
       "id": "bench-31",
       "category": "bench",
       "name": "Bench - Kingdom's Edge",
-      "x": 3245,
-      "y": 1575,
+      "x": 4290,
+      "y": 1920,
       "ref": {
         "source": "mapgenie",
         "mapgenieId": 470302,
@@ -541,8 +546,8 @@
       "id": "bench-34",
       "category": "bench",
       "name": "Bench - Pleasure House",
-      "x": 2740,
-      "y": 1412,
+      "x": 3280,
+      "y": 1440,
       "ref": {
         "source": "mapgenie",
         "mapgenieId": 470230,
@@ -621,8 +626,8 @@
       "id": "bench-39",
       "category": "bench",
       "name": "Bench - Resting Grounds Stag Station",
-      "x": 2857,
-      "y": 1241,
+      "x": 3515,
+      "y": 937,
       "ref": {
         "source": "mapgenie",
         "mapgenieId": 469874,
@@ -637,8 +642,8 @@
       "id": "bench-40",
       "category": "bench",
       "name": "Bench - Resting Grounds",
-      "x": 2944,
-      "y": 1272,
+      "x": 3690,
+      "y": 1025,
       "ref": {
         "source": "mapgenie",
         "mapgenieId": 469880,
@@ -1453,8 +1458,8 @@
       "id": "grub-23",
       "category": "grub",
       "name": "Captive Grub",
-      "x": 2002,
-      "y": 1434,
+      "x": 4175,
+      "y": 884,
       "ref": {
         "source": "mapgenie",
         "mapgenieId": 433683,
@@ -1757,8 +1762,8 @@
       "id": "grub-42",
       "category": "grub",
       "name": "Captive Grub",
-      "x": 3059,
-      "y": 1596,
+      "x": 2998,
+      "y": 1954,
       "ref": {
         "source": "mapgenie",
         "mapgenieId": 433717,
@@ -1949,8 +1954,8 @@
       "id": "cocoon-8",
       "category": "cocoon",
       "name": "Lifeblood Cocoon",
-      "x": 1970,
-      "y": 1557,
+      "x": 2676,
+      "y": 1273,
       "ref": {
         "source": "mapgenie",
         "mapgenieId": 470129,

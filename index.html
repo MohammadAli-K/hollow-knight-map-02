@@ -1,19 +1,16 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hallownest Map</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-  <div class="app">
-    <aside class="map-sidebar" id="map-sidebar" aria-label="Pin categories">
-      <header class="sidebar-header">
-        <div>
-          <h1 class="sidebar-title">Hallownest</h1>
-          <p class="sidebar-subtitle">Interactive Map</p>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hallownest Map</title>
+    <link rel="icon" type="image/png" href="assets/Knight_godmaster.png" />
+    <link rel="apple-touch-icon" href="assets/Knight_godmaster.png" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="map-sidebar" id="map-sidebar" aria-label="Pin categories">
         <button
           type="button"
           id="sidebar-toggle"
@@ -22,42 +19,119 @@
           aria-expanded="true"
           aria-label="Collapse sidebar"
         >
-          <span aria-hidden="true">❮</span>
+          <span aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="18" height="18">
+              <path fill="currentColor" d="M199.7 299.8C189.4 312.4 190.2 330.9 201.9 342.6L329.9 470.6C339.1 479.8 352.8 482.5 364.8 477.5C376.8 472.5 384.6 460.9 384.6 447.9L384.6 191.9C384.6 179 376.8 167.3 364.8 162.3C352.8 157.3 339.1 160.1 329.9 169.2L201.9 297.2L199.7 299.6z"/>
+            </svg>
+          </span>
         </button>
-      </header>
-      <nav id="category-list" class="category-list" aria-label="Filter pins by category"></nav>
-      <button type="button" id="reset-view" class="reset-view-btn">Reset view</button>
-    </aside>
-
-    <main class="map-stage">
-      <button
-        type="button"
-        id="mobile-sidebar-toggle"
-        class="mobile-sidebar-toggle"
-        aria-controls="map-sidebar"
-        aria-expanded="false"
-        aria-label="Open filters sidebar"
-      >
-        Filters
-      </button>
-      <div id="map-viewport" class="map-viewport" aria-label="Hallownest map">
-        <div id="map-transform" class="map-transform">
-          <img
-            id="basemap"
-            class="basemap"
-            src="assets/hollownest-basemap/hallownest.jpeg"
-            width="4498"
-            height="2901"
-            alt="Map of Hallownest"
-            draggable="false"
-          >
-          <div id="markers-layer" class="markers-layer"></div>
+        <header class="sidebar-header">
+          <img src="assets/logo/logo-512.png" alt="Hollow Knight Map" class="sidebar-logo" />
+          <p class="sidebar-subtitle">Hollow Knight Interactive Map</p>
+        </header>
+        <hr class="sidebar-divider" />
+        <div class="show-hide-row">
+          <button type="button" id="show-all" class="show-hide-btn">Show all</button>
+          <button type="button" id="hide-all" class="show-hide-btn">Hide all</button>
         </div>
-      </div>
-      <div id="tooltip" class="tooltip" role="tooltip" aria-hidden="true"></div>
-    </main>
-  </div>
+        <div class="search-row">
+          <input
+            type="search"
+            id="sidebar-search"
+            class="sidebar-search-input"
+            placeholder="Search markers…"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Search markers"
+          />
+          <button
+            type="button"
+            id="sidebar-search-clear"
+            class="sidebar-search-clear"
+            aria-label="Clear search"
+            hidden
+          >×</button>
+        </div>
+        <p id="search-result-count" class="search-result-count" hidden></p>
+        <nav
+          id="category-list"
+          class="category-list"
+          aria-label="Filter pins by category"
+        ></nav>
+        <button type="button" id="reset-view" class="reset-view-btn">
+          Reset view
+        </button>
+      </aside>
 
-  <script src="script.js" defer></script>
-</body>
+      <main class="map-stage">
+        <button
+          type="button"
+          id="mobile-sidebar-toggle"
+          class="mobile-sidebar-toggle"
+          aria-controls="map-sidebar"
+          aria-expanded="false"
+          aria-label="Open filters sidebar"
+        >
+          <svg
+            class="mobile-sidebar-toggle-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 640 640"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              fill="currentColor"
+              d="M96 128C83.1 128 71.4 135.8 66.4 147.8C61.4 159.8 64.2 173.5 73.4 182.6L256 365.3L256 480C256 488.5 259.4 496.6 265.4 502.6L329.4 566.6C338.6 575.8 352.3 578.5 364.3 573.5C376.3 568.5 384 556.9 384 544L384 365.3L566.6 182.7C575.8 173.5 578.5 159.8 573.5 147.8C568.5 135.8 556.9 128 544 128L96 128z"
+            />
+          </svg>
+        </button>
+        <div id="map-viewport" class="map-viewport" aria-label="Hallownest map">
+          <div id="map-transform" class="map-transform">
+            <img
+              id="basemap"
+              class="basemap"
+              src="assets/hollownest-basemap/hallownest.jpeg"
+              width="4498"
+              height="2901"
+              alt="Map of Hallownest"
+              draggable="false"
+            />
+            <div id="markers-layer" class="markers-layer"></div>
+          </div>
+        </div>
+        <div
+          id="tooltip"
+          class="tooltip"
+          role="tooltip"
+          aria-hidden="true"
+        ></div>
+        <div id="pin-popup" class="pin-popup" aria-hidden="true">
+          <div class="pin-popup-header">
+            <img class="pin-popup-icon" src="" alt="" width="28" height="28">
+            <div class="pin-popup-info">
+              <p class="pin-popup-name"></p>
+              <p class="pin-popup-region"></p>
+            </div>
+          </div>
+          <hr class="pin-popup-divider">
+          <button type="button" class="pin-popup-found-btn" aria-pressed="false">
+            <svg class="pin-popup-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+              <path fill="currentColor" d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/>
+            </svg>
+            <span class="pin-popup-found-label">Mark as found</span>
+          </button>
+        </div>
+      </main>
+    </div>
+
+    <div id="admin-toolbar" class="admin-toolbar" hidden>
+      <span class="admin-badge">Admin Mode</span>
+      <span class="admin-unsaved-count" id="admin-unsaved-count"></span>
+      <button type="button" class="admin-save-btn" id="admin-save">Save Changes</button>
+      <p id="admin-save-feedback" class="admin-save-feedback" hidden></p>
+      <a href="#" class="admin-logout-link" id="admin-logout">Logout</a>
+    </div>
+
+    <script src="script.js" defer></script>
+  </body>
 </html>

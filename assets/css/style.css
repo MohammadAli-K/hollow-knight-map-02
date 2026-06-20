@@ -6,6 +6,10 @@
   padding: 0;
 }
 
+button {
+  border-radius: 0;
+}
+
 html,
 body {
   height: 100%;
@@ -22,68 +26,94 @@ body {
 }
 
 .app {
-  display: flex;
+  position: relative;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
 }
 
-/* Sidebar */
+/* Sidebar — absolutely positioned overlay that slides in/out from the left.
+ * The map stage underneath is always full width; the sidebar floats on top. */
 .map-sidebar {
-  flex: 0 0 280px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 320px;
   display: flex;
   flex-direction: column;
-  background: #1e1e26;
-  border-right: 1px solid #2e2e38;
+  background: #000000;
+  padding: 12px;
   z-index: 10;
-  transition: flex-basis 0.18s ease;
+  transform: translateX(0);
+}
+
+/* CSS transitions are enabled only once the sidebar's initial (restored)
+ * state has been applied, so the page doesn't animate from default-open to
+ * its persisted collapsed state on first load. */
+.app.transitions-ready .map-sidebar {
+  transition:
+    transform 0.32s cubic-bezier(0.25, 0.1, 0.25, 1),
+    clip-path 0.42s cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+.app.transitions-ready .sidebar-toggle-btn > span {
+  transition: transform 0.32s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .sidebar-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 20px 18px 14px;
-  border-bottom: 1px solid #2e2e38;
+  padding: 10px 0 14px;
 }
 
-.sidebar-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: #f5f5f8;
+.sidebar-divider {
+  border: none;
+  border-top: 1px solid #262626;
+  margin: 0;
+}
+
+.sidebar-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 14px;
 }
 
 .sidebar-subtitle {
-  margin-top: 4px;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: #8888a0;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
+  text-align: center;
 }
 
+/* Toggle "tab" — anchored to the sidebar's right edge but pushed fully
+ * outside it via translateX(100%). Because it lives inside the sidebar, it
+ * rides along when the sidebar slides; when the sidebar is hidden (translated
+ * -100%), the tab sits exactly on the screen's left edge. */
 .sidebar-toggle-btn {
-  width: 32px;
-  height: 32px;
-  border: 1px solid #3a3a48;
-  border-radius: 6px;
-  background: #282832;
+  position: absolute;
+  top: 18px;
+  right: 0;
+  transform: translateX(100%);
+  width: 36px;
+  height: 56px;
+  border: none;
+  background: #000000;
   color: #cfd0df;
+  font-size: 0.85rem;
   cursor: pointer;
-  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition:
-    background 0.15s ease,
-    border-color 0.15s ease,
-    transform 0.15s ease;
+  z-index: 1;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.25);
 }
 
-.sidebar-toggle-btn:hover {
-  background: #32323e;
-  border-color: #4a4a5a;
+/* inline-block so the chevron can be rotated independently of the button. */
+.sidebar-toggle-btn > span {
+  display: inline-block;
 }
+
 
 .sidebar-toggle-btn:focus-visible {
   outline: 2px solid #6b8cff;
@@ -101,18 +131,23 @@ body {
   align-items: center;
   gap: 10px;
   width: 100%;
-  padding: 10px 18px;
+  padding: 10px 8px;
   border: none;
   background: transparent;
   color: inherit;
   font: inherit;
   text-align: left;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: color 0.15s ease;
 }
 
-.category-row:hover {
-  background: #282832;
+.category-row:hover .category-label,
+.category-row:hover .category-count {
+  color: #ffffff;
+}
+
+.category-row:active {
+  background: transparent;
 }
 
 .category-row:focus-visible {
@@ -120,32 +155,6 @@ body {
   outline-offset: -2px;
 }
 
-.category-checkbox {
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
-  border: 2px solid #5a5a6e;
-  border-radius: 3px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition:
-    border-color 0.15s ease,
-    background 0.15s ease;
-}
-
-.category-row.is-enabled .category-checkbox {
-  border-color: #6b8cff;
-  background: #3a4a8a;
-}
-
-.category-row.is-enabled .category-checkbox::after {
-  content: '✓';
-  font-size: 12px;
-  font-weight: 700;
-  color: #fff;
-  line-height: 1;
-}
 
 .category-row.is-disabled {
   opacity: 0.55;
@@ -167,44 +176,145 @@ body {
 .category-label {
   flex: 1;
   font-weight: 500;
-  color: #e0e0ea;
+  color: #cccccc;
 }
 
 .category-count {
   flex-shrink: 0;
-  min-width: 26px;
-  padding: 2px 8px;
-  border-radius: 10px;
-  background: #2e2e3a;
   font-size: 0.75rem;
   font-weight: 600;
-  color: #a8a8bc;
+  color: #cccccc;
+}
+
+.search-row {
+  position: relative;
+  margin: 8px 0;
+}
+
+.sidebar-search-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: transparent;
+  border: 1px solid #262626;
+  color: #e8e8ec;
+  padding: 8px 32px 8px 10px;
+  font: inherit;
+  font-size: 0.85rem;
+  border-radius: 0;
+  outline: none;
+  appearance: none;
+  transition: border-color 0.15s ease;
+}
+
+input[type='search']::-webkit-search-cancel-button {
+  display: none;
+}
+
+.sidebar-search-input::placeholder {
+  color: #8888a0;
+}
+
+.sidebar-search-input:focus {
+  border-color: #505060;
+  outline: none;
+}
+
+.sidebar-search-clear {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 30px;
+  background: transparent;
+  border: none;
+  color: #8888a0;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+}
+
+.sidebar-search-clear:hover {
+  color: #e8e8ec;
+}
+
+.search-empty {
+  color: #8888a0;
+  font-size: 0.82rem;
+  text-align: center;
+  padding: 24px 8px;
+  margin: 0;
+}
+
+.search-result-count {
+  font-size: 0.75rem;
+  color: #8888a0;
+  margin: 0;
+  padding: 6px 0;
   text-align: center;
 }
 
-.category-row.is-enabled .category-count {
-  background: #353548;
+.result-separator {
+  border: none;
+  border-top: 1px solid #262626;
+  margin: 0;
+}
+
+.result-region-label {
+  font-size: 0.72rem;
+  color: #8888a0;
+  padding: 2px 8px 10px;
+  margin: 0;
+}
+
+.map-pin.is-hovered {
+  filter: drop-shadow(0 0 6px #fff);
+}
+
+.show-hide-row {
+  display: flex;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.show-hide-btn {
+  flex: 1;
+  padding: 7px 10px;
+  border: 1px solid #262626;
+  background: transparent;
   color: #c8c8dc;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.show-hide-btn:hover {
+  border-color: #3a3a3a;
+}
+
+.show-hide-btn:focus-visible {
+  outline: 2px solid #6b8cff;
+  outline-offset: 2px;
 }
 
 .reset-view-btn {
-  margin: 12px 18px 18px;
+  margin: 12px 0 8px;
   padding: 10px 14px;
-  border: 1px solid #3a3a48;
-  border-radius: 6px;
-  background: #282832;
+  border: 1px solid #262626;
+  background: transparent;
   color: #c8c8dc;
   font: inherit;
   font-size: 0.85rem;
   cursor: pointer;
-  transition:
-    background 0.15s ease,
-    border-color 0.15s ease;
+  transition: border-color 0.15s ease;
 }
 
 .reset-view-btn:hover {
-  background: #32323e;
-  border-color: #4a4a5a;
+  border-color: #3a3a3a;
 }
 
 .reset-view-btn:focus-visible {
@@ -212,51 +322,22 @@ body {
   outline-offset: 2px;
 }
 
-.app.sidebar-collapsed .map-sidebar {
-  flex: 0 0 0;
-  width: 0;
-  min-width: 0;
-  border-right: none;
-  background: transparent;
-  overflow: visible;
-}
-
-.app.sidebar-collapsed .sidebar-title,
-.app.sidebar-collapsed .sidebar-subtitle,
-.app.sidebar-collapsed .category-label,
-.app.sidebar-collapsed .category-count,
-.app.sidebar-collapsed .category-checkbox,
-.app.sidebar-collapsed .category-list,
-.app.sidebar-collapsed #reset-view {
-  display: none;
-}
-
-.app.sidebar-collapsed .category-row {
-  justify-content: center;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.app.sidebar-collapsed .sidebar-header {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 35;
-  justify-content: center;
-  padding: 0;
-  border-bottom: none;
-}
-
-.app.sidebar-collapsed .sidebar-header > div {
-  display: none;
-}
-
-.app.sidebar-collapsed .sidebar-toggle-btn {
-  transform: rotate(180deg);
-}
-
+/* Collapsed (desktop) and auto-hidden (small viewport) both slide the
+ * sidebar off-screen to the left. */
+.app.sidebar-collapsed .map-sidebar,
 .app.sidebar-hidden .map-sidebar {
-  display: none;
+  transform: translateX(-100%);
+}
+
+/* Mobile: when the user explicitly opens the sidebar, slide it back in. */
+.app.sidebar-hidden.mobile-sidebar-open .map-sidebar {
+  transform: translateX(0);
+}
+
+/* Flip only the chevron icon — the button itself stays put and just rides
+ * along with the sliding sidebar. */
+.app.sidebar-collapsed .sidebar-toggle-btn > span {
+  transform: rotate(180deg);
 }
 
 .mobile-sidebar-toggle {
@@ -265,23 +346,22 @@ body {
   top: 12px;
   right: 12px;
   z-index: 50;
-  padding: 10px 14px;
-  border: 1px solid #3a3a48;
-  border-radius: 6px;
-  background: rgba(30, 30, 38, 0.94);
+  padding: 10px;
+  border: 1px solid #262626;
+  background: #000000;
   color: #f0f0f5;
   font: inherit;
   font-weight: 600;
   cursor: pointer;
-  transition:
-    background 0.15s ease,
-    border-color 0.15s ease;
 }
 
-.mobile-sidebar-toggle:hover {
-  background: rgba(42, 42, 52, 0.96);
-  border-color: #4a4a5a;
+.mobile-sidebar-toggle-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
 }
+
+
 
 .mobile-sidebar-toggle:focus-visible {
   outline: 2px solid #6b8cff;
@@ -289,22 +369,37 @@ body {
 }
 
 @media (max-width: 900px) {
+  /* On mobile the sidebar fills the screen and unrolls like a curtain from
+   * the top edge instead of sliding in from the side on desktop. */
+  .map-sidebar {
+    width: 100%;
+    clip-path: inset(0 0 0 0);
+  }
+
+  /* Curtain mechanic: keep the sidebar in place and animate clip-path
+   * instead of transform. The bottom inset shrinks from 100% (fully rolled
+   * up — nothing visible) to 0 (fully unrolled), revealing content from the
+   * top down. Resetting transform is needed because the desktop rules still
+   * apply translateX() at this specificity. */
+  .app.sidebar-collapsed .map-sidebar,
+  .app.sidebar-hidden .map-sidebar {
+    transform: none;
+    clip-path: inset(0 0 100% 0);
+  }
+
+  .app.sidebar-hidden.mobile-sidebar-open .map-sidebar {
+    transform: none;
+    clip-path: inset(0 0 0 0);
+  }
+
+  /* Hide the edge chevron on mobile; the dedicated Filters button is the
+   * primary control there. */
   .app.sidebar-hidden .sidebar-toggle-btn {
     display: none;
   }
 
   .app.sidebar-hidden .map-sidebar {
-    display: none;
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    border-right: none;
     z-index: 40;
-  }
-
-  .app.sidebar-hidden.mobile-sidebar-open .map-sidebar {
-    display: flex;
   }
 
   .app.sidebar-hidden .mobile-sidebar-toggle {
@@ -312,12 +407,30 @@ body {
     align-items: center;
     justify-content: center;
   }
+
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+  }
+
+  .sidebar-logo {
+    width: 120px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-subtitle {
+    display: none;
+  }
+
+  .sidebar-divider {
+    display: none;
+  }
 }
 
-/* Map stage */
+/* Map stage — fills the whole viewport. The sidebar overlays it. */
 .map-stage {
-  flex: 1;
-  position: relative;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
   background: #000000;
 }
@@ -411,7 +524,6 @@ body {
 .map-pin:focus-visible {
   outline: 2px solid #6b8cff;
   outline-offset: 2px;
-  border-radius: 4px;
 }
 
 .map-pin.is-hidden {
@@ -442,6 +554,137 @@ body {
   visibility: visible;
 }
 
+/* Pin popup */
+.pin-popup {
+  position: fixed;
+  z-index: 600;
+  min-width: 210px;
+  max-width: 280px;
+  background: #111118;
+  border: 1px solid #2a2a35;
+  color: #e8e8ec;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(calc(-100% - 14px));
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.7);
+}
+
+.pin-popup.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* downward arrow — border layer */
+.pin-popup::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #2a2a35;
+}
+
+/* downward arrow — fill layer */
+.pin-popup::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #111118;
+}
+
+.pin-popup-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 13px;
+}
+
+.pin-popup-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.pin-popup-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pin-popup-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #f0f0f5;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pin-popup-region {
+  font-size: 0.75rem;
+  color: #8888a0;
+  margin: 3px 0 0;
+}
+
+.pin-popup-divider {
+  border: none;
+  border-top: 1px solid #262626;
+  margin: 0;
+}
+
+.pin-popup-found-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 9px 13px;
+  border: none;
+  background: transparent;
+  color: #8888a0;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+  text-align: left;
+}
+
+.pin-popup-found-btn:hover {
+  color: #e8e8ec;
+  background: #1c1c26;
+}
+
+.pin-popup-found-btn.is-found {
+  color: #5dca82;
+}
+
+.pin-popup-found-btn.is-found:hover {
+  color: #4ab06d;
+  background: #1c1c26;
+}
+
+.pin-popup-check-icon {
+  flex-shrink: 0;
+}
+
+/* Found pin visual */
+.map-pin.is-found img {
+  filter: grayscale(55%) brightness(0.6);
+}
+
+
 /* Scrollbar */
 .category-list::-webkit-scrollbar {
   width: 6px;
@@ -458,4 +701,115 @@ body {
 
 .category-list::-webkit-scrollbar-thumb:hover {
   background: #4a4a58;
+}
+
+/* ==========================================================================
+   Admin CMS
+   ========================================================================== */
+
+.admin-toolbar {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #111118;
+  border: 1px solid #262626;
+  color: #e8e8ec;
+  font-size: 0.82rem;
+  font-family: inherit;
+}
+
+.admin-badge {
+  font-size: 0.70rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6b8cff;
+  border: 1px solid #6b8cff;
+  padding: 2px 6px;
+  border-radius: 0;
+  white-space: nowrap;
+}
+
+.admin-unsaved-count {
+  color: #8888a0;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.admin-save-btn {
+  padding: 5px 12px;
+  border: 1px solid #262626;
+  background: transparent;
+  color: #c8c8dc;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  border-radius: 0;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  white-space: nowrap;
+}
+
+.admin-save-btn.has-changes {
+  border-color: #5dca82;
+  color: #5dca82;
+}
+
+.admin-save-btn.has-changes:hover {
+  background: rgba(93, 202, 130, 0.08);
+}
+
+.admin-save-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.admin-save-feedback {
+  font-size: 0.78rem;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.admin-save-feedback.success {
+  color: #5dca82;
+}
+
+.admin-save-feedback.error {
+  color: #ffd0d6;
+}
+
+.admin-logout-link {
+  font-size: 0.78rem;
+  color: #8888a0;
+  text-decoration: none;
+  padding-bottom: 1px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.admin-logout-link:hover {
+  color: #e8e8ec;
+  border-bottom-color: #8888a0;
+}
+
+/* Admin drag states */
+
+body.is-admin .map-pin {
+  cursor: grab;
+}
+
+body.is-admin .map-pin.is-admin-dragging {
+  cursor: grabbing;
+  z-index: 100;
+  filter: drop-shadow(0 0 8px #6b8cff) !important;
+  transition: none !important;
+}
+
+body.is-admin .map-pin.is-dirty {
+  filter: drop-shadow(0 0 5px #5dca82);
 }

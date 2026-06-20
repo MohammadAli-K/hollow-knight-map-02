@@ -1,0 +1,14 @@
+{
+  "name": "hollow-knight-map",
+  "version": "1.0.0",
+  "description": "Hollow Knight interactive map with admin CMS",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "helmet": "^8.0.0",
+    "jose": "^5.9.6"
+  }
+}
