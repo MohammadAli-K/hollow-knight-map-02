@@ -1007,6 +1007,7 @@ let adminSaveFeedbackEl = null;
 // ---------------------------------------------------------------------------
 
 async function checkAdminAuth() {
+  if (!window.location.pathname.startsWith('/admin-login')) return;
   try {
     const res = await fetch('/api/auth/status');
     if (!res.ok) return;
