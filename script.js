@@ -95,7 +95,7 @@ let lastPanTimestamp = 0;
 const MAX_SCALE = 4;
 const MIN_SCALE = 0.2;
 const ZOOM_SENSITIVITY = 0.0016;
-const ZOOM_EASING = 0.24;
+const ZOOM_EASING = 0.38;
 const SIDEBAR_STORAGE_KEY = 'hk-map-sidebar-collapsed';
 const SIDEBAR_HIDE_BREAKPOINT = 900;
 
@@ -234,13 +234,20 @@ function startZoomAnimation() {
   zoomRafId = requestAnimationFrame(animateZoomStep);
 }
 
+function applyTransformInstant() {
+  transformEl.classList.add('no-zoom-transition');
+  applyTransform();
+  void transformEl.offsetWidth;
+  transformEl.classList.remove('no-zoom-transition');
+}
+
 function getFitScale(rect) {
   const scaleX = rect.width / MAP.width;
   const scaleY = rect.height / MAP.height;
   return Math.min(scaleX, scaleY);
 }
 
-function fitMapToViewport() {
+function fitMapToViewport(instant = false) {
   stopZoomAnimation();
   const rect = viewportEl.getBoundingClientRect();
   scale = getFitScale(rect) * 0.95;
@@ -251,7 +258,11 @@ function fitMapToViewport() {
   targetTranslateY = translateY;
   lastViewportWidth = rect.width;
   lastViewportHeight = rect.height;
-  applyTransform();
+  if (instant) {
+    applyTransformInstant();
+  } else {
+    applyTransform();
+  }
 }
 
 function onViewportResize() {
@@ -982,9 +993,9 @@ async function init() {
 
   const basemap = document.getElementById('basemap');
   if (basemap.complete) {
-    fitMapToViewport();
+    fitMapToViewport(true);
   } else {
-    basemap.addEventListener('load', fitMapToViewport);
+    basemap.addEventListener('load', () => fitMapToViewport(true));
   }
 }
 
