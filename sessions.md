@@ -174,3 +174,7 @@ Sessions are listed chronologically. Each entry includes the date, topic, and a 
 **Final state:**
 - `cornimap.com` — public map, no admin toolbar for anyone
 - `cornimap.com/admin-login` — Cloudflare Access login → admin toolbar with drag-and-drop pin repositioning + save
+
+**Continued same session:**
+- Fixed admin toolbar showing on `cornimap.com` even without auth: CSS `display: flex` was overriding `hidden` attribute → added `.admin-toolbar[hidden] { display: none !important; }` and added URL path check in `checkAdminAuth()` so it only runs on `/admin-login`. Pushed as commit `8836418`.
+- Added One-time PIN as identity provider in Cloudflare Zero Trust (Integrations → Identity providers → Add). Configured it as the login method for the cornimap.com application (Login methods tab). Now `cornimap.com/admin-login` shows an email input, sends a code to `mokass844@gmail.com`, works in both regular Chrome and incognito with no session conflicts.
