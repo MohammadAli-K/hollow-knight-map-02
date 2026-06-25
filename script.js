@@ -95,12 +95,23 @@ let pinchStartScale = 1;
 let pinchStartMapX = 0;
 let pinchStartMapY = 0;
 
+// Touch Events-based pinch — runs alongside Pointer Events.
+// iOS Safari has a bug where pointerdown never fires for the second touch
+// when the first touch has setPointerCapture active, so the Pointer Events
+// multi-touch path silently fails there. Touch Events are rock-solid on iOS
+// and handle pinch independently.
+let isTouchPinching = false;
+let touchPinchStartDist = 0;
+let touchPinchStartScale = 1;
+let touchPinchStartMapX = 0;
+let touchPinchStartMapY = 0;
+
 const pressedKeys = new Set();
 let panRafId = null;
 let lastPanTimestamp = 0;
 
 const MAX_SCALE = 4;
-const MIN_SCALE = 0.2;
+const MIN_SCALE = 0.05;
 const ZOOM_SENSITIVITY = 0.0016;
 const ZOOM_EASING = 0.38;
 const SIDEBAR_STORAGE_KEY = 'hk-map-sidebar-collapsed';
@@ -485,7 +496,10 @@ function onPointerMove(event) {
     targetTranslateX = translateX;
     targetTranslateY = translateY;
     applyTransform();
-  } else if (isDragging && event.pointerId === dragPointerId) {
+  } else if (isDragging && (dragPointerId === null || event.pointerId === dragPointerId)) {
+    // dragPointerId may be null after a touch-pinch→drag transition; adopt
+    // whichever pointer moves first.
+    if (dragPointerId === null) dragPointerId = event.pointerId;
     translateX = dragOriginX + (event.clientX - dragStartX);
     translateY = dragOriginY + (event.clientY - dragStartY);
     targetTranslateX = translateX;
@@ -642,9 +656,22 @@ function openPopup(marker, pinEl) {
 }
 
 function positionPopupAt(pinEl) {
-  const rect = pinEl.getBoundingClientRect();
-  pinPopupEl.style.left = `${rect.left + rect.width / 2}px`;
-  pinPopupEl.style.top = `${rect.top}px`;
+  const pinRect = pinEl.getBoundingClientRect();
+  const pinCenterX = pinRect.left + pinRect.width / 2;
+  pinPopupEl.style.left = `${pinCenterX}px`;
+  pinPopupEl.style.top = `${pinRect.top}px`;
+
+  // Clamp horizontally so the popup doesn't overflow the viewport edges.
+  requestAnimationFrame(() => {
+    if (!activePopupMarkerId) return;
+    const popupRect = pinPopupEl.getBoundingClientRect();
+    const margin = 8;
+    if (popupRect.left < margin) {
+      pinPopupEl.style.left = `${pinCenterX + (margin - popupRect.left)}px`;
+    } else if (popupRect.right > window.innerWidth - margin) {
+      pinPopupEl.style.left = `${pinCenterX - (popupRect.right - (window.innerWidth - margin))}px`;
+    }
+  });
 }
 
 function closePopup() {
@@ -856,7 +883,10 @@ function renderSearchResults(matches) {
         <img class="category-icon" src="${categoryIconById[marker.category]}" alt="" width="22" height="22">
         <span class="category-label">${marker.name}</span>
       `;
-    row.addEventListener('click', () => panToMarker(marker));
+    row.addEventListener('click', () => {
+      panToMarker(marker);
+      if (isSidebarAutoHidden) setMobileSidebarOpen(false);
+    });
     row.addEventListener('mouseenter', () => {
       const pin = markersLayerEl.querySelector(`.map-pin[data-id="${marker.id}"]`);
       if (pin) pin.classList.add('is-hovered');
@@ -951,6 +981,73 @@ function renderMarkers() {
   markersLayerEl.appendChild(fragment);
 }
 
+function onTouchStart(e) {
+  if (e.touches.length < 2) return;
+  // Two fingers — take over pinch zoom. Call preventDefault() so:
+  // (1) the browser doesn't run its own pinch-zoom on top of ours, and
+  // (2) the corresponding pointerdown for the second touch is suppressed,
+  //     avoiding double-handling in browsers that fire both event types.
+  e.preventDefault();
+  stopZoomAnimation();
+
+  // Cancel any pointer-based drag so the two handlers don't fight.
+  isDragging = false;
+  dragPointerId = null;
+  isPinching = false;
+  viewportEl.classList.remove('is-dragging');
+
+  const t1 = e.touches[0];
+  const t2 = e.touches[1];
+  const rect = viewportEl.getBoundingClientRect();
+  touchPinchStartDist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+  touchPinchStartScale = scale;
+  const midX = (t1.clientX + t2.clientX) / 2 - rect.left;
+  const midY = (t1.clientY + t2.clientY) / 2 - rect.top;
+  touchPinchStartMapX = (midX - translateX) / scale;
+  touchPinchStartMapY = (midY - translateY) / scale;
+  isTouchPinching = true;
+}
+
+function onTouchMove(e) {
+  if (!isTouchPinching || e.touches.length < 2) return;
+  e.preventDefault();
+
+  const t1 = e.touches[0];
+  const t2 = e.touches[1];
+  const rect = viewportEl.getBoundingClientRect();
+  const dist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+  const midX = (t1.clientX + t2.clientX) / 2 - rect.left;
+  const midY = (t1.clientY + t2.clientY) / 2 - rect.top;
+
+  const newScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, touchPinchStartScale * (dist / touchPinchStartDist)));
+  scale = newScale;
+  translateX = midX - touchPinchStartMapX * newScale;
+  translateY = midY - touchPinchStartMapY * newScale;
+  targetScale = scale;
+  targetTranslateX = translateX;
+  targetTranslateY = translateY;
+  applyTransform();
+}
+
+function onTouchEnd(e) {
+  if (!isTouchPinching) return;
+  if (e.touches.length >= 2) return;
+  isTouchPinching = false;
+
+  if (e.touches.length === 1) {
+    // One finger remains — resume drag. dragPointerId=null lets onPointerMove
+    // adopt whichever pointer's event arrives first.
+    const t = e.touches[0];
+    isDragging = true;
+    dragPointerId = null;
+    dragStartX = t.clientX;
+    dragStartY = t.clientY;
+    dragOriginX = translateX;
+    dragOriginY = translateY;
+    viewportEl.classList.add('is-dragging');
+  }
+}
+
 function zoomAtViewportCenter(factor) {
   const rect = viewportEl.getBoundingClientRect();
   const cx = rect.width / 2;
@@ -978,12 +1075,21 @@ function initPanZoom() {
   viewportEl.addEventListener('pointerup', onPointerUp);
   viewportEl.addEventListener('pointercancel', onPointerUp);
   viewportEl.addEventListener('lostpointercapture', onPointerUp);
+  // Touch Events for pinch-to-zoom — more reliable than Pointer Events
+  // multi-touch on iOS Safari (see comments on onTouchStart).
+  viewportEl.addEventListener('touchstart', onTouchStart, { passive: false });
+  viewportEl.addEventListener('touchmove', onTouchMove, { passive: false });
+  viewportEl.addEventListener('touchend', onTouchEnd);
+  viewportEl.addEventListener('touchcancel', onTouchEnd);
 
   window.addEventListener('keydown', onKeyDown);
   window.addEventListener('keyup', onKeyUp);
   window.addEventListener('blur', onWindowBlur);
 
-  resetViewBtn.addEventListener('click', fitMapToViewport);
+  resetViewBtn.addEventListener('click', () => {
+    fitMapToViewport();
+    if (isSidebarAutoHidden) setMobileSidebarOpen(false);
+  });
   window.addEventListener('resize', () => {
     applyResponsiveSidebarVisibility();
     onViewportResize();

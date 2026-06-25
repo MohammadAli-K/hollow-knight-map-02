@@ -8,6 +8,8 @@
 
 button {
   border-radius: 0;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html,
@@ -424,6 +426,41 @@ input[type='search']::-webkit-search-cancel-button {
 
   .sidebar-divider {
     display: none;
+  }
+}
+
+/* ============================================================
+   Mobile — small phones (≤600px)
+   On narrow screens the pin popup becomes a bottom sheet so it
+   can never be clipped by the top/sides of the viewport.
+   ============================================================ */
+@media (max-width: 600px) {
+  /* Bottom-sheet popup: fixed to the bottom edge, full width. */
+  .pin-popup {
+    /* Override JS-set left/top with !important so the bottom-sheet
+     * positioning wins regardless of where the pin sits on screen. */
+    left: 8px !important;
+    top: auto !important;
+    right: 8px;
+    bottom: 8px;
+    width: calc(100% - 16px);
+    max-width: none;
+    min-width: 0;
+    /* Cancel the upward translate that positions it above the pin. */
+    transform: none !important;
+  }
+
+  /* The arrow caret pointing at the pin makes no sense for a bottom sheet. */
+  .pin-popup::before,
+  .pin-popup::after {
+    display: none;
+  }
+
+  /* Larger zoom buttons on phones for easier tapping. */
+  .zoom-btn {
+    width: 52px;
+    height: 52px;
+    font-size: 1.7rem;
   }
 }
 

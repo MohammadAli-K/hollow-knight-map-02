@@ -190,3 +190,18 @@ Sessions are listed chronologically. Each entry includes the date, topic, and a 
 - `script.js` — Replaced single `activePointerId` tracking with an `activePointers` Map that tracks all simultaneous touch points. `onPointerDown` detects when a second finger lands and switches into pinch mode; `onPointerMove` computes the new scale from the finger-distance ratio, keeping the pinch midpoint anchored to the same map coordinate; `onPointerUp` transitions back to single-finger drag when one finger lifts. Added `zoomAtViewportCenter(factor)` helper and `initZoomButtons()` to wire up dedicated +/− buttons.
 - `index.html` — Added `+` / `−` zoom control buttons inside the map stage.
 - `style.css` — Styled `.zoom-controls` and `.zoom-btn`: fixed to bottom-right, 44×44px tap targets, `touch-action: manipulation` to eliminate 300ms tap delay on mobile, `-webkit-tap-highlight-color: transparent` for clean tap feel.
+
+---
+
+## 2026-06-25 | Fix mobile pinch-to-zoom (iOS Safari) + mobile-friendly polish
+**Session:** `current`
+
+**User:** Pinch-to-zoom still didn't work on mobile phones after the previous fix.
+
+**Root cause:** iOS Safari has a documented bug — when the first touch has `setPointerCapture` active, `pointerdown` is never fired for the second touch. The previous fix used only the Pointer Events API, which silently fails on iOS for the second finger, so pinch was never detected.
+
+**Done:**
+- `script.js` — Added native Touch Events handlers (`onTouchStart`, `onTouchMove`, `onTouchEnd`) registered with `{ passive: false }` so `e.preventDefault()` stops the browser's own pinch-zoom from intercepting the gesture. These run alongside the existing Pointer Events (which still handle single-touch drag on all platforms). On iOS, Touch Events fire correctly for both fingers and the pinch is handled reliably. Updated `onPointerMove` to handle `dragPointerId === null` for clean pinch→drag state transitions. Clicking a search result or "Reset View" now closes the mobile sidebar automatically.
+- `script.js` — Changed `MIN_SCALE` from `0.2` to `0.05`. On a phone (~375px wide), the map's fit scale is ~0.08 — below the old 0.2 floor — meaning zooming "out" would paradoxically zoom in. Now zoom out works as expected on all screen sizes.
+- `style.css` — Added `touch-action: manipulation` and `-webkit-tap-highlight-color: transparent` globally to all buttons (removes 300ms tap delay on mobile). Added `@media (max-width: 600px)` block: pin popup becomes a bottom sheet (fixed to bottom edge, full width) so it can never be clipped off the top or sides of the screen on phones; zoom buttons enlarged to 52×52px.
+- `script.js` — `positionPopupAt` now clamps the popup horizontally to stay within the viewport on all screen sizes.
