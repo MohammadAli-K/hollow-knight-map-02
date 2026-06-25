@@ -427,6 +427,44 @@ input[type='search']::-webkit-search-cancel-button {
   }
 }
 
+.zoom-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 16px;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.zoom-btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid #262626;
+  background: #000000;
+  color: #c8c8dc;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s ease, color 0.15s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.zoom-btn:hover {
+  border-color: #3a3a3a;
+  color: #ffffff;
+}
+
+.zoom-btn:focus-visible {
+  outline: 2px solid #6b8cff;
+  outline-offset: 2px;
+}
+
 /* Map stage — fills the whole viewport. The sidebar overlays it. */
 .map-stage {
   position: absolute;

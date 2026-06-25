@@ -86,7 +86,14 @@ let dragStartX = 0;
 let dragStartY = 0;
 let dragOriginX = 0;
 let dragOriginY = 0;
-let activePointerId = null;
+let dragPointerId = null;
+
+const activePointers = new Map(); // pointerId → {x, y}
+let isPinching = false;
+let pinchStartDist = 0;
+let pinchStartScale = 1;
+let pinchStartMapX = 0;
+let pinchStartMapY = 0;
 
 const pressedKeys = new Set();
 let panRafId = null;
@@ -415,42 +422,101 @@ function onWheel(event) {
 
 function onPointerDown(event) {
   if (event.button !== 0) return;
-  if (event.target.closest('.map-pin')) return;
-  if (event.target.closest('.pin-popup')) return;
-  closePopup();
+
+  // For the first touch only: let pins and popups handle their own clicks.
+  if (activePointers.size === 0) {
+    if (event.target.closest('.map-pin')) return;
+    if (event.target.closest('.pin-popup')) return;
+    closePopup();
+  }
 
   stopZoomAnimation();
   targetScale = scale;
   targetTranslateX = translateX;
   targetTranslateY = translateY;
 
-  isDragging = true;
-  activePointerId = event.pointerId;
-  dragStartX = event.clientX;
-  dragStartY = event.clientY;
-  dragOriginX = translateX;
-  dragOriginY = translateY;
-  viewportEl.classList.add('is-dragging');
   viewportEl.setPointerCapture(event.pointerId);
+  activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+
+  if (activePointers.size >= 2) {
+    // Two fingers down — switch to pinch-to-zoom.
+    isDragging = false;
+    dragPointerId = null;
+    viewportEl.classList.remove('is-dragging');
+
+    isPinching = true;
+    const pts = [...activePointers.values()];
+    const rect = viewportEl.getBoundingClientRect();
+    const midX = (pts[0].x + pts[1].x) / 2 - rect.left;
+    const midY = (pts[0].y + pts[1].y) / 2 - rect.top;
+    pinchStartDist = Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y);
+    pinchStartScale = scale;
+    pinchStartMapX = (midX - translateX) / scale;
+    pinchStartMapY = (midY - translateY) / scale;
+  } else {
+    // Single finger — pan/drag.
+    isPinching = false;
+    isDragging = true;
+    dragPointerId = event.pointerId;
+    dragStartX = event.clientX;
+    dragStartY = event.clientY;
+    dragOriginX = translateX;
+    dragOriginY = translateY;
+    viewportEl.classList.add('is-dragging');
+  }
 }
 
 function onPointerMove(event) {
-  if (!isDragging || event.pointerId !== activePointerId) return;
+  if (!activePointers.has(event.pointerId)) return;
+  activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
 
-  translateX = dragOriginX + (event.clientX - dragStartX);
-  translateY = dragOriginY + (event.clientY - dragStartY);
-  targetTranslateX = translateX;
-  targetTranslateY = translateY;
-  applyTransform();
+  if (isPinching && activePointers.size >= 2) {
+    const pts = [...activePointers.values()];
+    const rect = viewportEl.getBoundingClientRect();
+    const midX = (pts[0].x + pts[1].x) / 2 - rect.left;
+    const midY = (pts[0].y + pts[1].y) / 2 - rect.top;
+    const dist = Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y);
+
+    const newScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, pinchStartScale * (dist / pinchStartDist)));
+    scale = newScale;
+    translateX = midX - pinchStartMapX * newScale;
+    translateY = midY - pinchStartMapY * newScale;
+    targetScale = scale;
+    targetTranslateX = translateX;
+    targetTranslateY = translateY;
+    applyTransform();
+  } else if (isDragging && event.pointerId === dragPointerId) {
+    translateX = dragOriginX + (event.clientX - dragStartX);
+    translateY = dragOriginY + (event.clientY - dragStartY);
+    targetTranslateX = translateX;
+    targetTranslateY = translateY;
+    applyTransform();
+  }
 }
 
 function onPointerUp(event) {
-  if (!isDragging || event.pointerId !== activePointerId) return;
-
-  isDragging = false;
-  activePointerId = null;
-  viewportEl.classList.remove('is-dragging');
+  if (!activePointers.has(event.pointerId)) return;
+  activePointers.delete(event.pointerId);
   viewportEl.releasePointerCapture(event.pointerId);
+
+  if (activePointers.size === 0) {
+    isDragging = false;
+    isPinching = false;
+    dragPointerId = null;
+    viewportEl.classList.remove('is-dragging');
+  } else if (activePointers.size === 1 && isPinching) {
+    // One finger lifted — end pinch; remaining finger continues as a drag.
+    isPinching = false;
+    const [remainId] = activePointers.keys();
+    const remainPtr = activePointers.get(remainId);
+    dragPointerId = remainId;
+    dragStartX = remainPtr.x;
+    dragStartY = remainPtr.y;
+    dragOriginX = translateX;
+    dragOriginY = translateY;
+    isDragging = true;
+    viewportEl.classList.add('is-dragging');
+  }
 }
 
 function isTypingInFormControl(target) {
@@ -885,6 +951,26 @@ function renderMarkers() {
   markersLayerEl.appendChild(fragment);
 }
 
+function zoomAtViewportCenter(factor) {
+  const rect = viewportEl.getBoundingClientRect();
+  const cx = rect.width / 2;
+  const cy = rect.height / 2;
+  const mapX = (cx - targetTranslateX) / targetScale;
+  const mapY = (cy - targetTranslateY) / targetScale;
+  const newScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, targetScale * factor));
+  targetTranslateX = cx - mapX * newScale;
+  targetTranslateY = cy - mapY * newScale;
+  targetScale = newScale;
+  startZoomAnimation();
+}
+
+function initZoomButtons() {
+  const zoomInBtn = document.getElementById('zoom-in');
+  const zoomOutBtn = document.getElementById('zoom-out');
+  if (zoomInBtn) zoomInBtn.addEventListener('click', () => zoomAtViewportCenter(1.5));
+  if (zoomOutBtn) zoomOutBtn.addEventListener('click', () => zoomAtViewportCenter(1 / 1.5));
+}
+
 function initPanZoom() {
   viewportEl.addEventListener('wheel', onWheel, { passive: false });
   viewportEl.addEventListener('pointerdown', onPointerDown);
@@ -980,6 +1066,7 @@ async function init() {
   if (searchClearBtn) searchClearBtn.addEventListener('click', clearSearch);
 
   initPanZoom();
+  initZoomButtons();
   initSidebarToggle();
   initMobileSidebarToggle();
   applyResponsiveSidebarVisibility();

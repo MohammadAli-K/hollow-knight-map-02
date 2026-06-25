@@ -178,3 +178,15 @@ Sessions are listed chronologically. Each entry includes the date, topic, and a 
 **Continued same session:**
 - Fixed admin toolbar showing on `cornimap.com` even without auth: CSS `display: flex` was overriding `hidden` attribute → added `.admin-toolbar[hidden] { display: none !important; }` and added URL path check in `checkAdminAuth()` so it only runs on `/admin-login`. Pushed as commit `8836418`.
 - Added One-time PIN as identity provider in Cloudflare Zero Trust (Integrations → Identity providers → Add). Configured it as the login method for the cornimap.com application (Login methods tab). Now `cornimap.com/admin-login` shows an email input, sends a code to `mokass844@gmail.com`, works in both regular Chrome and incognito with no session conflicts.
+
+---
+
+## 2026-06-25 | Mobile pinch-to-zoom + zoom buttons
+**Session:** `current`
+
+**User:** Zoom in/out was broken on mobile — the map couldn't be pinched on phones.
+
+**Done:**
+- `script.js` — Replaced single `activePointerId` tracking with an `activePointers` Map that tracks all simultaneous touch points. `onPointerDown` detects when a second finger lands and switches into pinch mode; `onPointerMove` computes the new scale from the finger-distance ratio, keeping the pinch midpoint anchored to the same map coordinate; `onPointerUp` transitions back to single-finger drag when one finger lifts. Added `zoomAtViewportCenter(factor)` helper and `initZoomButtons()` to wire up dedicated +/− buttons.
+- `index.html` — Added `+` / `−` zoom control buttons inside the map stage.
+- `style.css` — Styled `.zoom-controls` and `.zoom-btn`: fixed to bottom-right, 44×44px tap targets, `touch-action: manipulation` to eliminate 300ms tap delay on mobile, `-webkit-tap-highlight-color: transparent` for clean tap feel.
