@@ -906,6 +906,10 @@ body.is-admin .map-pin.is-dirty {
   gap: 8px;
 }
 
+.sidebar-auth-user[hidden] {
+  display: none !important;
+}
+
 .sidebar-auth-email {
   flex: 1;
   font-size: 0.78rem;

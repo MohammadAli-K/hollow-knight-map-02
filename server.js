@@ -39,10 +39,13 @@ app.use(express.json({ limit: '512kb' }));
 // SQLite database — user accounts and found markers
 // ---------------------------------------------------------------------------
 
-const DATA_DIR = path.join(__dirname, 'data');
-if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR);
+// Keep data/ for markers.json (read-only from repo).
+// Store the database in a separate directory so a Railway Volume mounted at
+// /app/userdata doesn't shadow data/markers.json.
+const DB_DIR = process.env.DB_DIR || path.join(__dirname, 'userdata');
+if (!fs.existsSync(DB_DIR)) fs.mkdirSync(DB_DIR, { recursive: true });
 
-const db = new Database(path.join(DATA_DIR, 'users.db'));
+const db = new Database(path.join(DB_DIR, 'users.db'));
 db.pragma('journal_mode = WAL');
 db.pragma('foreign_keys = ON');
 
