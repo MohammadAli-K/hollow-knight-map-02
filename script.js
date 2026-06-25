@@ -1442,6 +1442,11 @@ function enterAdminMode() {
   adminToolbarEl.hidden = false;
   document.body.classList.add('is-admin');
 
+  const sidebarAuthEl = document.getElementById('sidebar-auth');
+  if (sidebarAuthEl) sidebarAuthEl.hidden = true;
+  const sidebarAuthDivider = document.querySelector('.sidebar-auth-divider');
+  if (sidebarAuthDivider) sidebarAuthDivider.hidden = true;
+
   // Attach drag listeners to all already-rendered pins
   MARKERS.forEach((marker) => {
     const pin = markersLayerEl.querySelector(`.map-pin[data-id="${marker.id}"]`);
