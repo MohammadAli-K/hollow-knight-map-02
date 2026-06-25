@@ -230,3 +230,34 @@ Sessions are listed chronologically. Each entry includes the date, topic, and a 
 - `script.js` — Changed `MIN_SCALE` from `0.2` to `0.05`. On a phone (~375px wide), the map's fit scale is ~0.08 — below the old 0.2 floor — meaning zooming "out" would paradoxically zoom in. Now zoom out works as expected on all screen sizes.
 - `style.css` — Added `touch-action: manipulation` and `-webkit-tap-highlight-color: transparent` globally to all buttons (removes 300ms tap delay on mobile). Added `@media (max-width: 600px)` block: pin popup becomes a bottom sheet (fixed to bottom edge, full width) so it can never be clipped off the top or sides of the screen on phones; zoom buttons enlarged to 52×52px.
 - `script.js` — `positionPopupAt` now clamps the popup horizontally to stay within the viewport on all screen sizes.
+
+---
+
+## 2026-06-25 | Fix markers.json shadowed by Railway Volume + auth widget display bug
+**Commit:** `6e946c6`
+
+**User:** Two bugs after deploying user accounts:
+1. Railway Volume mounted at `/app/data` was shadowing `data/markers.json`, causing the server to serve empty markers.
+2. The sidebar auth widget (login/logout area) was not hiding when `hidden` attribute was set, because `display: flex` in CSS was overriding it.
+
+**Done:**
+- `server.js` — Moved SQLite DB path from `data/users.db` to `userdata/users.db` (directory configurable via `DB_DIR` env var). Railway Volume is now mounted at `/app/userdata` instead of `/app/data`, so `data/markers.json` is no longer shadowed.
+- `style.css` — Added `.sidebar-auth-user[hidden] { display: none !important }` (same fix previously applied to `.admin-toolbar[hidden]`).
+
+---
+
+## 2026-06-25 | Hide user auth widget on admin page
+**Commit:** `29b376f`
+
+**User:** The user login/register widget in the sidebar should not appear on the `/admin-login` page.
+
+**Done:**
+- `script.js` — In `enterAdminMode()`, added code to hide `#sidebar-auth` and `.sidebar-auth-divider` elements by setting their `hidden` attribute when admin mode activates.
+
+---
+
+## 2026-06-25 | Add all sessions to sessions.md
+**Session:** current
+
+**User:** Add all prompts, including ones from Cursor agents and Claude agents, to sessions.md.
+**Done:** Added the two undocumented sessions from commits `6e946c6` and `29b376f` to sessions.md.
