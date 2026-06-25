@@ -125,11 +125,20 @@ Sessions are listed chronologically. Each entry includes the date, topic, and a 
 
 ---
 
-## 2026-06-19 | Pin popup + found state
+## 2026-06-19 | Pin popup + found state + search result popup
 **Session:** `ead6c769`
 
-**User:** Clicking a pin should show a popup above it with the pin's name, region, and a "Mark as found" button. Marking found should desaturate/dim the pin and store the state in `localStorage`. Remove the green ring animation.
-**Done:** Popup implemented with close-on-pan/zoom/Escape/outside-click. Found state persists in `localStorage`. Green ring removed.
+**User (across multiple turns):**
+1. Clicking a pin should show a popup above it with the pin's name, region, and a "Mark as found" button. Marking found should desaturate/dim the pin and store the state in `localStorage`.
+2. Remove the green ring animation.
+3. Clicking a search result should also open the popup for that pin.
+
+**Done:**
+- Popup card appears above the clicked pin with a downward arrow, showing icon, name, region, and a "Mark as found" toggle button.
+- Found state persists in `localStorage`; found pins render greyed out.
+- Green ring animation removed.
+- Search result clicks pan to the marker, then open the popup automatically once the pan animation settles (via a `zoomCompleteCallback` hook on `animateZoomStep`).
+- Popup closes on outside click, pan, zoom, or Escape.
 
 ---
 

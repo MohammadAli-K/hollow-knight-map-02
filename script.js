@@ -64,6 +64,7 @@ let targetScale = 1;
 let targetTranslateX = 0;
 let targetTranslateY = 0;
 let zoomRafId = null;
+let zoomCompleteCallback = null;
 let lastViewportWidth = 0;
 let lastViewportHeight = 0;
 let isSidebarAutoHidden = false;
@@ -219,6 +220,7 @@ function stopZoomAnimation() {
   if (!zoomRafId) return;
   cancelAnimationFrame(zoomRafId);
   zoomRafId = null;
+  zoomCompleteCallback = null;
 }
 
 function animateZoomStep() {
@@ -241,6 +243,11 @@ function animateZoomStep() {
     translateY = targetTranslateY;
     applyTransform();
     zoomRafId = null;
+    if (zoomCompleteCallback) {
+      const cb = zoomCompleteCallback;
+      zoomCompleteCallback = null;
+      cb();
+    }
     return;
   }
 
@@ -884,8 +891,12 @@ function renderSearchResults(matches) {
         <span class="category-label">${marker.name}</span>
       `;
     row.addEventListener('click', () => {
-      panToMarker(marker);
       if (isSidebarAutoHidden) setMobileSidebarOpen(false);
+      panToMarker(marker);
+      zoomCompleteCallback = () => {
+        const pin = markersLayerEl.querySelector(`.map-pin[data-id="${marker.id}"]`);
+        if (pin) openPopup(marker, pin);
+      };
     });
     row.addEventListener('mouseenter', () => {
       const pin = markersLayerEl.querySelector(`.map-pin[data-id="${marker.id}"]`);
