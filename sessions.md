@@ -190,6 +190,22 @@ Sessions are listed chronologically. Each entry includes the date, topic, and a 
 
 ---
 
+## 2026-06-25 | User accounts + "Mark as Found" gated behind login
+**Session:** `a-user-can-click-curried-octopus`
+
+**User:** A user can click "Mark as Found" only if they have created an account, allowing the pins they find to be saved server-side.
+
+**Done:**
+- `server.js` — Added SQLite database (`data/users.db`) via `better-sqlite3` with `users` and `user_found_markers` tables. Added `requireUserAuth` / `optionalUserAuth` middleware using JWT signed with `USER_JWT_SECRET` env var (via `jose`). Added 7 new API routes: `POST /api/user/register`, `POST /api/user/login`, `POST /api/user/logout`, `GET /api/user/status`, `GET /api/user/found`, `POST /api/user/found`, `DELETE /api/user/found/:markerId`. Passwords hashed with `bcryptjs`.
+- `package.json` — Added `better-sqlite3` and `bcryptjs` dependencies.
+- `.env.example` — Documented `USER_JWT_SECRET` env var.
+- `index.html` — Added sidebar auth widget (Log in / Register button; shows email + Log out when logged in). Added auth modal with Login / Create account tabs, email + password fields, and error display.
+- `script.js` — Added `currentUser` and `pendingFoundMarkerId` state. `toggleFound()` now gates on login — if logged out, saves the pending marker ID and opens the auth modal, then completes the action after login. Found markers are loaded from and saved to the server instead of localStorage. On first login, any existing localStorage found markers are silently migrated to the server. Added `initAuthModal()`, `initSidebarAuth()`, `checkUserAuth()`, `onAuthSuccess()`, `applyFoundStates()`.
+- `style.css` — Styled sidebar auth widget and auth modal (dark theme, tabs, form inputs, error text).
+- Railway — Added `USER_JWT_SECRET` env var. Attached a persistent Volume at `/app/data` so `users.db` and `markers.json` survive redeploys.
+
+---
+
 ## 2026-06-25 | Mobile pinch-to-zoom + zoom buttons
 **Session:** `current`
 

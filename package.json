@@ -7,6 +7,8 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^12.11.1",
     "express": "^4.19.2",
     "helmet": "^8.0.0",
     "jose": "^5.9.6"

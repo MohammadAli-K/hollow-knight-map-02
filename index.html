@@ -30,6 +30,14 @@
           <p class="sidebar-subtitle">Hollow Knight Interactive Map</p>
         </header>
         <hr class="sidebar-divider" />
+        <div id="sidebar-auth" class="sidebar-auth">
+          <div id="sidebar-auth-user" class="sidebar-auth-user" hidden>
+            <span id="sidebar-auth-email" class="sidebar-auth-email"></span>
+            <button type="button" id="sidebar-logout-btn" class="sidebar-auth-btn">Log out</button>
+          </div>
+          <button type="button" id="sidebar-login-btn" class="sidebar-auth-btn sidebar-auth-login-btn">Log in / Register</button>
+        </div>
+        <hr class="sidebar-divider sidebar-auth-divider" />
         <div class="show-hide-row">
           <button type="button" id="show-all" class="show-hide-btn">Show all</button>
           <button type="button" id="hide-all" class="show-hide-btn">Hide all</button>
@@ -126,6 +134,26 @@
           </button>
         </div>
       </main>
+    </div>
+
+    <div id="auth-modal" class="auth-modal" hidden aria-modal="true" role="dialog" aria-labelledby="auth-modal-title">
+      <div class="auth-modal-backdrop"></div>
+      <div class="auth-modal-box">
+        <button type="button" class="auth-modal-close" aria-label="Close">&#x00D7;</button>
+        <h2 id="auth-modal-title" class="auth-modal-title">Log in</h2>
+        <div class="auth-modal-tabs" role="tablist">
+          <button type="button" class="auth-tab is-active" role="tab" data-tab="login" aria-selected="true">Log in</button>
+          <button type="button" class="auth-tab" role="tab" data-tab="register" aria-selected="false">Create account</button>
+        </div>
+        <form id="auth-form" class="auth-form" novalidate>
+          <label class="auth-label" for="auth-email">Email</label>
+          <input class="auth-input" type="email" id="auth-email" autocomplete="email" required />
+          <label class="auth-label" for="auth-password">Password</label>
+          <input class="auth-input" type="password" id="auth-password" autocomplete="current-password" minlength="8" required />
+          <p id="auth-error" class="auth-error" hidden></p>
+          <button type="submit" class="auth-submit-btn" id="auth-submit">Log in</button>
+        </form>
+      </div>
     </div>
 
     <div id="admin-toolbar" class="admin-toolbar" hidden>

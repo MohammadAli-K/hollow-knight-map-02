@@ -82,6 +82,9 @@ let pinPopupEl = null;
 let activePopupMarkerId = null;
 let activePopupMarker = null;
 
+let currentUser = null; // { email } when logged in, null otherwise
+let pendingFoundMarkerId = null; // marker waiting for login to complete
+
 let isDragging = false;
 let dragStartX = 0;
 let dragStartY = 0;
@@ -622,17 +625,32 @@ function onWindowBlur() {
   pressedKeys.clear();
 }
 
-function loadFoundMarkers() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(FOUND_STORAGE_KEY) ?? '[]');
-    foundMarkers = new Set(Array.isArray(saved) ? saved : []);
-  } catch {
-    foundMarkers = new Set();
-  }
+function applyFoundStates() {
+  if (!markersLayerEl) return;
+  markersLayerEl.querySelectorAll('.map-pin').forEach((pin) => {
+    pin.classList.toggle('is-found', foundMarkers.has(pin.dataset.id));
+  });
 }
 
-function saveFoundMarkers() {
-  localStorage.setItem(FOUND_STORAGE_KEY, JSON.stringify([...foundMarkers]));
+async function migrateLocalStorageToServer() {
+  let localIds;
+  try {
+    const saved = JSON.parse(localStorage.getItem(FOUND_STORAGE_KEY) ?? '[]');
+    localIds = Array.isArray(saved) ? saved : [];
+  } catch {
+    localIds = [];
+  }
+  if (localIds.length === 0) return;
+  await Promise.allSettled(
+    localIds.map((id) =>
+      fetch('/api/user/found', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ markerId: id }),
+      })
+    )
+  );
+  localStorage.removeItem(FOUND_STORAGE_KEY);
 }
 
 function openPopup(marker, pinEl) {
@@ -700,18 +718,27 @@ function refreshPopupFoundState() {
 }
 
 function toggleFound(markerId) {
-  if (foundMarkers.has(markerId)) {
-    foundMarkers.delete(markerId);
-  } else {
-    foundMarkers.add(markerId);
+  if (!currentUser) {
+    pendingFoundMarkerId = markerId;
+    openAuthModal();
+    return;
   }
-  saveFoundMarkers();
 
-  const isFnd = foundMarkers.has(markerId);
-  const pin = markersLayerEl.querySelector(`.map-pin[data-id="${markerId}"]`);
-  if (pin) {
-    pin.classList.toggle('is-found', isFnd);
+  const isNowFound = !foundMarkers.has(markerId);
+  if (isNowFound) {
+    foundMarkers.add(markerId);
+    fetch('/api/user/found', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ markerId }),
+    });
+  } else {
+    foundMarkers.delete(markerId);
+    fetch(`/api/user/found/${encodeURIComponent(markerId)}`, { method: 'DELETE' });
   }
+
+  const pin = markersLayerEl.querySelector(`.map-pin[data-id="${markerId}"]`);
+  if (pin) pin.classList.toggle('is-found', isNowFound);
 
   refreshPopupFoundState();
 }
@@ -1145,7 +1172,9 @@ async function init() {
   mobileSidebarToggleBtn = document.getElementById('mobile-sidebar-toggle');
   pinPopupEl = document.getElementById('pin-popup');
 
-  loadFoundMarkers();
+  initAuthModal();
+  initSidebarAuth();
+  checkUserAuth();
 
   pinPopupEl.querySelector('.pin-popup-found-btn').addEventListener('click', (e) => {
     e.stopPropagation();
@@ -1204,6 +1233,171 @@ async function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+// =============================================================================
+// User accounts — login / register / found markers
+// =============================================================================
+
+let authModalEl = null;
+let authActiveTab = 'login';
+
+function setSidebarAuthState(email) {
+  const loginBtn = document.getElementById('sidebar-login-btn');
+  const userEl = document.getElementById('sidebar-auth-user');
+  const emailEl = document.getElementById('sidebar-auth-email');
+  if (email) {
+    loginBtn.hidden = true;
+    emailEl.textContent = email;
+    userEl.hidden = false;
+  } else {
+    loginBtn.hidden = false;
+    userEl.hidden = true;
+  }
+}
+
+async function checkUserAuth() {
+  try {
+    const res = await fetch('/api/user/status');
+    const data = await res.json();
+    if (data.loggedIn) {
+      currentUser = { email: data.email };
+      setSidebarAuthState(data.email);
+      await loadServerFoundMarkers();
+    }
+  } catch {
+    // Non-critical: silently fail if server not available
+  }
+}
+
+async function loadServerFoundMarkers() {
+  try {
+    const res = await fetch('/api/user/found');
+    const data = await res.json();
+    if (data.ok) {
+      foundMarkers = new Set(data.found);
+      applyFoundStates();
+      if (activePopupMarkerId) refreshPopupFoundState();
+    }
+  } catch {
+    // ignore
+  }
+}
+
+async function onAuthSuccess(email) {
+  currentUser = { email };
+  setSidebarAuthState(email);
+  closeAuthModal();
+
+  await migrateLocalStorageToServer();
+  await loadServerFoundMarkers();
+
+  if (pendingFoundMarkerId) {
+    const id = pendingFoundMarkerId;
+    pendingFoundMarkerId = null;
+    toggleFound(id);
+  }
+}
+
+function openAuthModal(tab = 'login') {
+  if (!authModalEl) return;
+  switchAuthTab(tab);
+  authModalEl.hidden = false;
+  document.getElementById('auth-email').focus();
+}
+
+function closeAuthModal() {
+  if (!authModalEl) return;
+  authModalEl.hidden = true;
+  document.getElementById('auth-error').hidden = true;
+  document.getElementById('auth-form').reset();
+}
+
+function switchAuthTab(tab) {
+  authActiveTab = tab;
+  authModalEl.querySelectorAll('.auth-tab').forEach((btn) => {
+    const active = btn.dataset.tab === tab;
+    btn.classList.toggle('is-active', active);
+    btn.setAttribute('aria-selected', String(active));
+  });
+  const title = authModalEl.querySelector('.auth-modal-title');
+  const submit = document.getElementById('auth-submit');
+  if (tab === 'login') {
+    title.textContent = 'Log in';
+    submit.textContent = 'Log in';
+    document.getElementById('auth-password').setAttribute('autocomplete', 'current-password');
+  } else {
+    title.textContent = 'Create account';
+    submit.textContent = 'Create account';
+    document.getElementById('auth-password').setAttribute('autocomplete', 'new-password');
+  }
+}
+
+function initAuthModal() {
+  authModalEl = document.getElementById('auth-modal');
+  if (!authModalEl) return;
+
+  authModalEl.querySelector('.auth-modal-close').addEventListener('click', closeAuthModal);
+  authModalEl.querySelector('.auth-modal-backdrop').addEventListener('click', closeAuthModal);
+
+  authModalEl.querySelectorAll('.auth-tab').forEach((btn) => {
+    btn.addEventListener('click', () => switchAuthTab(btn.dataset.tab));
+  });
+
+  document.getElementById('auth-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('auth-email').value.trim();
+    const password = document.getElementById('auth-password').value;
+    const errorEl = document.getElementById('auth-error');
+    const submitBtn = document.getElementById('auth-submit');
+
+    errorEl.hidden = true;
+    submitBtn.disabled = true;
+
+    try {
+      const endpoint = authActiveTab === 'login' ? '/api/user/login' : '/api/user/register';
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        errorEl.textContent = data.error || 'Something went wrong.';
+        errorEl.hidden = false;
+      } else {
+        await onAuthSuccess(data.email);
+      }
+    } catch {
+      errorEl.textContent = 'Could not reach server. Try again.';
+      errorEl.hidden = false;
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !authModalEl.hidden) closeAuthModal();
+  });
+}
+
+function initSidebarAuth() {
+  const loginBtn = document.getElementById('sidebar-login-btn');
+  const logoutBtn = document.getElementById('sidebar-logout-btn');
+
+  if (loginBtn) loginBtn.addEventListener('click', () => openAuthModal('login'));
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
+      await fetch('/api/user/logout', { method: 'POST' });
+      currentUser = null;
+      foundMarkers = new Set();
+      applyFoundStates();
+      if (activePopupMarkerId) refreshPopupFoundState();
+      setSidebarAuthState(null);
+    });
+  }
+}
 
 // =============================================================================
 // Admin CMS — Cloudflare Access + drag-and-drop pin repositioning
