@@ -272,3 +272,22 @@ Sessions are listed chronologically. Each entry includes the date, topic, and a 
 **Done:**
 - `README.md` — Created. Covers: live URL (`cornimap.com`), features overview, tech stack table, project structure, getting started (install + env config + run), full API reference (user auth, found markers, admin), admin CMS explanation, marker data format, and Railway deployment notes.
 - Live URL `https://cornimap.com` added as the first line of the README.
+
+---
+
+## 2026-06-26 | Folder reorganization & code quality improvements
+**Session:** current
+
+**User:** Organize the folder structure and improve code quality without altering behavior.
+
+**Done:**
+
+**Folder structure:**
+- Created `public/` — moved `index.html`, `script.js`, and `assets/` into it. `server.js` now serves `express.static('./public')` instead of the project root. This also prevents `server.js`, `package.json`, etc. from being accessible via HTTP.
+- Created `docs/` — moved `sessions.md`, `SMART-plan.md`, and all `presentatie-plan.*` files into it.
+- `data/` stays at root (server reads it for admin marker saves); added explicit `/data/markers.json` route so the frontend can still fetch it.
+
+**Code quality:**
+- `server.js` — Added `Cache-Control: public, max-age=31536000, immutable` for static assets (images, CSS, JS); `no-cache` for `markers.json`. Added production fail-fast for missing `USER_JWT_SECRET` (exits with error if `NODE_ENV=production` and secret is unset; dev behavior unchanged).
+- `public/script.js` — `toggleFound()` made async with try/catch. On server failure the optimistic update is reverted and `.is-sync-error` is applied to the popup button for 3 seconds. Happy path behavior unchanged.
+- `public/assets/css/style.css` — Added `.pin-popup-found-btn.is-sync-error { color: #e05050; }` for the error state.

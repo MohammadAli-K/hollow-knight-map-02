@@ -717,7 +717,7 @@ function refreshPopupFoundState() {
   label.textContent = isFnd ? 'Found' : 'Mark as found';
 }
 
-function toggleFound(markerId) {
+async function toggleFound(markerId) {
   if (!currentUser) {
     pendingFoundMarkerId = markerId;
     openAuthModal();
@@ -725,22 +725,41 @@ function toggleFound(markerId) {
   }
 
   const isNowFound = !foundMarkers.has(markerId);
+
+  // Optimistic update — immediate visual feedback, same as before
   if (isNowFound) {
     foundMarkers.add(markerId);
-    fetch('/api/user/found', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ markerId }),
-    });
   } else {
     foundMarkers.delete(markerId);
-    fetch(`/api/user/found/${encodeURIComponent(markerId)}`, { method: 'DELETE' });
   }
-
   const pin = markersLayerEl.querySelector(`.map-pin[data-id="${markerId}"]`);
   if (pin) pin.classList.toggle('is-found', isNowFound);
-
   refreshPopupFoundState();
+
+  // Sync with server; revert and show error if it fails
+  try {
+    const res = isNowFound
+      ? await fetch('/api/user/found', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ markerId }),
+        })
+      : await fetch(`/api/user/found/${encodeURIComponent(markerId)}`, { method: 'DELETE' });
+    if (!res.ok) throw new Error('sync failed');
+  } catch {
+    if (isNowFound) {
+      foundMarkers.delete(markerId);
+    } else {
+      foundMarkers.add(markerId);
+    }
+    if (pin) pin.classList.toggle('is-found', !isNowFound);
+    refreshPopupFoundState();
+    const btn = pinPopupEl.querySelector('.pin-popup-found-btn');
+    if (btn) {
+      btn.classList.add('is-sync-error');
+      setTimeout(() => btn.classList.remove('is-sync-error'), 3000);
+    }
+  }
 }
 
 

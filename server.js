@@ -349,16 +349,28 @@ app.delete('/api/user/found/:markerId', requireUserAuth, (req, res) => {
 // ---------------------------------------------------------------------------
 // Static file serving (must come after API routes)
 // ---------------------------------------------------------------------------
+
+// Serve markers.json explicitly so it stays outside the public/ tree but
+// remains accessible to the frontend. No-cache ensures admin saves are visible
+// immediately without a hard refresh.
+app.get('/data/markers.json', (_req, res) => {
+  res.setHeader('Cache-Control', 'no-cache');
+  res.sendFile(path.join(__dirname, 'data', 'markers.json'));
+});
+
 app.use(
-  express.static(path.join(__dirname), {
-    setHeaders(res) {
+  express.static(path.join(__dirname, 'public'), {
+    setHeaders(res, filePath) {
       res.removeHeader('X-Powered-By');
+      if (/\.(png|webp|jpeg|jpg|css|js)$/.test(filePath)) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+      }
     },
   })
 );
 
 app.get('*', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(PORT, () => {
@@ -370,6 +382,10 @@ app.listen(PORT, () => {
     );
   }
   if (!USER_JWT_SECRET) {
+    if (process.env.NODE_ENV === 'production') {
+      console.error('FATAL: USER_JWT_SECRET must be set in production. Refusing to start.');
+      process.exit(1);
+    }
     console.warn(
       '  WARNING: USER_JWT_SECRET not set. Using insecure dev default.\n' +
         '  Set this env var before deploying to production.'
