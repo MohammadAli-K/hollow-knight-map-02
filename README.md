@@ -29,15 +29,17 @@ An interactive map for the game *Hollow Knight*, built as a full-stack web app. 
 
 ```
 ├── server.js          # Express server — API routes and static file serving
-├── script.js          # All frontend logic (map, sidebar, auth, admin CMS)
-├── index.html         # Single-page app shell
-├── assets/
-│   ├── css/style.css  # All styles
-│   ├── pins/          # WebP pin icons (bench, stag, springs, tram, grub, cocoon)
-│   ├── hollownest-basemap/  # Map background image
-│   └── logo/          # App logo
+├── public/
+│   ├── index.html     # Single-page app shell
+│   ├── script.js      # All frontend logic (map, sidebar, auth, admin CMS)
+│   └── assets/
+│       ├── css/style.css  # All styles
+│       ├── pins/          # WebP pin icons (bench, stag, springs, tram, grub, cocoon)
+│       ├── hollownest-basemap/  # Map background image
+│       └── logo/          # App logo
 ├── data/
 │   └── markers.json   # Marker definitions (id, category, name, x/y coordinates)
+├── docs/              # Project documentation and learning artifacts
 ├── tools/
 │   └── build-markers.js  # One-off script: converts MapGenie export → markers.json
 └── .env.example       # Required environment variables
