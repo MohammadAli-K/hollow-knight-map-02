@@ -261,3 +261,14 @@ Sessions are listed chronologically. Each entry includes the date, topic, and a 
 
 **User:** Add all prompts, including ones from Cursor agents and Claude agents, to sessions.md.
 **Done:** Added the two undocumented sessions from commits `6e946c6` and `29b376f` to sessions.md.
+
+---
+
+## 2026-06-26 | Add README
+**Session:** current
+
+**User:** Add a README to the repository with a project summary, explanation of how it works, and any other relevant details. Also add the live URL.
+
+**Done:**
+- `README.md` — Created. Covers: live URL (`cornimap.com`), features overview, tech stack table, project structure, getting started (install + env config + run), full API reference (user auth, found markers, admin), admin CMS explanation, marker data format, and Railway deployment notes.
+- Live URL `https://cornimap.com` added as the first line of the README.
