@@ -568,8 +568,8 @@ input[type='search']::-webkit-search-cancel-button {
 
 .map-pin {
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 34px;
+  height: 34px;
   margin: 0;
   padding: 0;
   border: none;
