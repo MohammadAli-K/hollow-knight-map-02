@@ -4,6 +4,7 @@ const express = require('express');
 const helmet = require('helmet');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const { createRemoteJWKSet, jwtVerify, SignJWT } = require('jose');
 const Database = require('better-sqlite3');
 const bcrypt = require('bcryptjs');
@@ -390,6 +391,9 @@ app.get('/data/markers.json', (_req, res) => {
 
 app.use(
   express.static(path.join(__dirname, 'public'), {
+    // Serve index.html only through the catch-all route below, which
+    // injects cache-busting query params into its asset URLs.
+    index: false,
     setHeaders(res, filePath) {
       res.removeHeader('X-Powered-By');
       if (/\.(png|webp|jpeg|jpg|css|js)$/.test(filePath)) {
@@ -399,8 +403,26 @@ app.use(
   })
 );
 
+// script.js/style.css are served with a 1-year immutable Cache-Control
+// above, so browsers and CDNs never revalidate them within that window.
+// Tagging their URLs with a content hash means a code change produces a
+// new URL (cache miss) instead of silently serving stale JS/CSS forever.
+function hashAssetFile(relPath) {
+  const contents = fs.readFileSync(path.join(__dirname, 'public', relPath));
+  return crypto.createHash('sha1').update(contents).digest('hex').slice(0, 10);
+}
+
+const indexHtml = fs
+  .readFileSync(path.join(__dirname, 'public', 'index.html'), 'utf8')
+  .replace(
+    'href="assets/css/style.css"',
+    `href="assets/css/style.css?v=${hashAssetFile('assets/css/style.css')}"`,
+  )
+  .replace('src="script.js"', `src="script.js?v=${hashAssetFile('script.js')}"`);
+
 app.get('*', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.setHeader('Cache-Control', 'no-cache');
+  res.type('html').send(indexHtml);
 });
 
 app.listen(PORT, () => {
