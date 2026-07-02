@@ -4,6 +4,12 @@
 
 An interactive map for the game *Hollow Knight*, built as a full-stack web app. Users can explore the Hallownest map, filter collectibles by category, search for specific locations, and track which items they have found — all synced to a personal account.
 
+## Demo video
+
+[![Watch the demo](https://img.youtube.com/vi/djh-hl7YyIg/0.jpg)](https://www.youtube.com/watch?v=djh-hl7YyIg)
+
+Walkthrough of the interactive map on [cornimap.com](https://cornimap.com) and the admin CMS at [cornimap.com/admin-login](https://cornimap.com/admin-login).
+
 ## Features
 
 - **Pan & zoom** — drag to pan, scroll wheel or pinch-to-zoom, keyboard arrow keys to navigate
