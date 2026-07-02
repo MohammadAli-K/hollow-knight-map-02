@@ -11,7 +11,7 @@ An interactive map for the game *Hollow Knight*, built as a full-stack web app. 
 - **Search** — filter markers by name or region; clicking a search result pans and zooms directly to the pin
 - **Mark as Found** — track collected items per account; state is persisted server-side
 - **User accounts** — register/login with email + password; JWT session stored in an HttpOnly cookie
-- **Admin CMS** — authenticated admins can drag pins to reposition them and save coordinates back to `data/markers.json`
+- **Admin CMS** — authenticated admins can drag pins to reposition them; new coordinates are saved as overrides in SQLite and merged into the served marker data
 - **Responsive** — sidebar auto-hides on narrow screens with a mobile toggle
 
 ## Tech stack
@@ -109,7 +109,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Admin CMS
 
-Navigate to `/admin-login` while authenticated through Cloudflare Access. In admin mode, every pin becomes draggable. Drag a pin to its correct position and click **Save Changes** — coordinates are written back to `data/markers.json` atomically (write to `.tmp`, then rename).
+Navigate to `/admin-login` while authenticated through Cloudflare Access. In admin mode, every pin becomes draggable. Drag a pin to its correct position and click **Save Changes** — coordinates are saved to the `marker_position_overrides` table in SQLite. `GET /data/markers.json` merges these overrides into the base file on every request, so edits survive restarts/redeploys without needing to touch the repo file.
 
 ## Marker data
 
@@ -117,6 +117,6 @@ Navigate to `/admin-login` while authenticated through Cloudflare Access. In adm
 
 ## Deployment
 
-The app is designed to run on [Railway](https://railway.app). Mount a persistent volume at `/app/userdata` so the SQLite database survives deploys. `data/markers.json` stays in the repo and is read-only at runtime (admin saves write directly to the filesystem, so the volume should also cover `data/` if pin repositioning needs to persist across deploys).
+The app is designed to run on [Railway](https://railway.app). Mount a persistent volume at `/app/userdata` so the SQLite database survives deploys. `data/markers.json` stays in the repo and is read-only at runtime — admin pin repositioning is stored as overrides in the same SQLite database, so it persists across deploys without requiring the volume to cover `data/`.
 
 Set the three environment variables (`CF_TEAM_NAME`, `CF_AUD`, `USER_JWT_SECRET`) in your Railway service settings before deploying to production.

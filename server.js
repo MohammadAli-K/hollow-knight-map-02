@@ -64,6 +64,13 @@ db.exec(`
     PRIMARY KEY (user_id, marker_id),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
   );
+
+  CREATE TABLE IF NOT EXISTS marker_position_overrides (
+    marker_id  TEXT    PRIMARY KEY,
+    x          INTEGER NOT NULL,
+    y          INTEGER NOT NULL,
+    updated_at INTEGER NOT NULL
+  );
 `);
 
 // ---------------------------------------------------------------------------
@@ -206,6 +213,17 @@ app.get('/api/auth/status', requireCFAccess, (_req, res) => {
   res.json({ isAdmin: true });
 });
 
+// data/markers.json ships in the repo/Docker image and is not on the
+// persistent Railway volume, so it gets reset to its committed contents on
+// every restart/redeploy. Repositioned pins are therefore stored as overrides
+// in SQLite (same volume as users.db) and merged in at read time instead of
+// being written back to that file.
+const upsertMarkerOverride = db.prepare(`
+  INSERT INTO marker_position_overrides (marker_id, x, y, updated_at)
+  VALUES (@markerId, @x, @y, @updatedAt)
+  ON CONFLICT(marker_id) DO UPDATE SET x = @x, y = @y, updated_at = @updatedAt
+`);
+
 app.post('/api/admin/markers', requireCFAccess, (req, res) => {
   const updates = req.body?.markers;
   if (!Array.isArray(updates)) {
@@ -213,7 +231,6 @@ app.post('/api/admin/markers', requireCFAccess, (req, res) => {
   }
 
   const markersPath = path.join(__dirname, 'data', 'markers.json');
-  const tmpPath = markersPath + '.tmp';
 
   let data;
   try {
@@ -222,35 +239,30 @@ app.post('/api/admin/markers', requireCFAccess, (req, res) => {
     return res.status(500).json({ ok: false, error: 'Could not read markers' });
   }
 
-  const byId = new Map(data.markers.map((m) => [m.id, m]));
+  const validIds = new Set(data.markers.map((m) => m.id));
   const mapWidth = data.map.width;
   const mapHeight = data.map.height;
+  const now = Date.now();
 
   let saved = 0;
-  for (const { id, x, y } of updates) {
-    const marker = byId.get(id);
-    if (!marker) continue;
-    if (
-      typeof x !== 'number' ||
-      typeof y !== 'number' ||
-      !isFinite(x) ||
-      !isFinite(y) ||
-      x < 0 || x > mapWidth ||
-      y < 0 || y > mapHeight
-    ) {
-      continue;
+  const applyUpdates = db.transaction((rows) => {
+    for (const { id, x, y } of rows) {
+      if (!validIds.has(id)) continue;
+      if (
+        typeof x !== 'number' ||
+        typeof y !== 'number' ||
+        !isFinite(x) ||
+        !isFinite(y) ||
+        x < 0 || x > mapWidth ||
+        y < 0 || y > mapHeight
+      ) {
+        continue;
+      }
+      upsertMarkerOverride.run({ markerId: id, x: Math.round(x), y: Math.round(y), updatedAt: now });
+      saved++;
     }
-    marker.x = Math.round(x);
-    marker.y = Math.round(y);
-    saved++;
-  }
-
-  try {
-    fs.writeFileSync(tmpPath, JSON.stringify(data, null, 2), 'utf8');
-    fs.renameSync(tmpPath, markersPath);
-  } catch {
-    return res.status(500).json({ ok: false, error: 'Could not write markers' });
-  }
+  });
+  applyUpdates(updates);
 
   res.json({ ok: true, saved });
 });
@@ -352,10 +364,34 @@ app.delete('/api/user/found/:markerId', requireUserAuth, (req, res) => {
 
 // Serve markers.json explicitly so it stays outside the public/ tree but
 // remains accessible to the frontend. No-cache ensures admin saves are visible
-// immediately without a hard refresh.
+// immediately without a hard refresh. Repositioned coordinates are stored as
+// overrides in SQLite (see /api/admin/markers) and merged in here, since the
+// JSON file itself is not on the persistent volume.
 app.get('/data/markers.json', (_req, res) => {
   res.setHeader('Cache-Control', 'no-cache');
-  res.sendFile(path.join(__dirname, 'data', 'markers.json'));
+
+  let data;
+  try {
+    data = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'markers.json'), 'utf8'));
+  } catch {
+    return res.status(500).json({ ok: false, error: 'Could not read markers' });
+  }
+
+  const overrides = db
+    .prepare('SELECT marker_id, x, y FROM marker_position_overrides')
+    .all();
+  if (overrides.length > 0) {
+    const overrideById = new Map(overrides.map((o) => [o.marker_id, o]));
+    for (const marker of data.markers) {
+      const override = overrideById.get(marker.id);
+      if (override) {
+        marker.x = override.x;
+        marker.y = override.y;
+      }
+    }
+  }
+
+  res.json(data);
 });
 
 app.use(
