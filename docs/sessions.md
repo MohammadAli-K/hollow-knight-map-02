@@ -308,3 +308,13 @@ Sessions are listed chronologically. Each entry includes the date, topic, and a 
 
 **Done:**
 - `server.js` — Removed the in-bounds range check from `POST /api/admin/markers`; only malformed values (non-number, `NaN`/`Infinity`) are now rejected. Admins can drag pins anywhere on screen, including outside the map image, and the position now persists correctly.
+
+---
+
+## 2026-07-02 | Shrink map pin size
+**Commit:** `8bfd6b7`
+
+**User:** Pins were too large on the map.
+
+**Done:**
+- `public/assets/css/style.css` — `.map-pin` width/height reduced from `50px` to `34px`. Hover/focus scale (`--pin-scale` multiplier) and drag/dirty styling are relative, so no other changes were needed.
