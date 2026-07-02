@@ -291,3 +291,20 @@ Sessions are listed chronologically. Each entry includes the date, topic, and a 
 - `server.js` — Added `Cache-Control: public, max-age=31536000, immutable` for static assets (images, CSS, JS); `no-cache` for `markers.json`. Added production fail-fast for missing `USER_JWT_SECRET` (exits with error if `NODE_ENV=production` and secret is unset; dev behavior unchanged).
 - `public/script.js` — `toggleFound()` made async with try/catch. On server failure the optimistic update is reverted and `.is-sync-error` is applied to the popup button for 3 seconds. Happy path behavior unchanged.
 - `public/assets/css/style.css` — Added `.pin-popup-found-btn.is-sync-error { color: #e05050; }` for the error state.
+
+---
+
+## 2026-07-02 | Fix: repositioned pins outside the map image weren't saving
+**Commit:** `e857079`
+
+**User:** Admin marker repositioning needed to survive Railway redeploys.
+
+**Done:**
+- `server.js` — Admin saves no longer write back to `data/markers.json` (that file ships in the repo/Docker image and resets on every redeploy). Added a `marker_position_overrides` SQLite table; `POST /api/admin/markers` upserts into it, and `GET /data/markers.json` merges overrides into the base file at read time.
+
+**User (follow-up):** Reported the save still "didn't work" — repositioned pins weren't showing up after leaving `/admin-login`. Investigation initially (incorrectly) suspected the browser's back-forward cache and made a client-side `pageshow` reload fix; the user then tested directly on `cornimap.com` and found the real pattern: **pins repositioned inside the map image saved fine — only pins dragged outside the map's edges failed to save.** The bfcache fix was reverted (never committed) as not the actual cause.
+
+**Root cause:** `POST /api/admin/markers` validated `x`/`y` against `[0, mapWidth] x [0, mapHeight]` and silently dropped (skipped, not errored) any coordinate outside that range — while still responding `{ ok: true }`, so the frontend showed "Saved successfully" even when nothing was written.
+
+**Done:**
+- `server.js` — Removed the in-bounds range check from `POST /api/admin/markers`; only malformed values (non-number, `NaN`/`Infinity`) are now rejected. Admins can drag pins anywhere on screen, including outside the map image, and the position now persists correctly.

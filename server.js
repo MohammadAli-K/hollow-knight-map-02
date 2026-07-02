@@ -240,22 +240,16 @@ app.post('/api/admin/markers', requireCFAccess, (req, res) => {
   }
 
   const validIds = new Set(data.markers.map((m) => m.id));
-  const mapWidth = data.map.width;
-  const mapHeight = data.map.height;
   const now = Date.now();
 
+  // Pins are intentionally allowed outside [0, mapWidth] x [0, mapHeight] —
+  // admins can drag them past the map's edges for convenience. Only reject
+  // malformed data, not out-of-bounds coordinates.
   let saved = 0;
   const applyUpdates = db.transaction((rows) => {
     for (const { id, x, y } of rows) {
       if (!validIds.has(id)) continue;
-      if (
-        typeof x !== 'number' ||
-        typeof y !== 'number' ||
-        !isFinite(x) ||
-        !isFinite(y) ||
-        x < 0 || x > mapWidth ||
-        y < 0 || y > mapHeight
-      ) {
+      if (typeof x !== 'number' || typeof y !== 'number' || !isFinite(x) || !isFinite(y)) {
         continue;
       }
       upsertMarkerOverride.run({ markerId: id, x: Math.round(x), y: Math.round(y), updatedAt: now });
