@@ -119,6 +119,8 @@ const MIN_SCALE = 0.05;
 const ZOOM_SENSITIVITY = 0.0016;
 const ZOOM_EASING = 0.38;
 const SIDEBAR_STORAGE_KEY = 'hk-map-sidebar-collapsed';
+const VIEW_STORAGE_KEY = 'hk-map-view';
+const VIEW_SAVE_DEBOUNCE_MS = 250;
 const SIDEBAR_HIDE_BREAKPOINT = 900;
 
 const PAN_KEYS = new Set([
@@ -214,9 +216,68 @@ function updatePinScale() {
   markersLayerEl.style.setProperty('--pin-scale', pinScale.toFixed(4));
 }
 
+let saveViewTimeoutId = null;
+
+function saveViewState() {
+  try {
+    window.localStorage.setItem(
+      VIEW_STORAGE_KEY,
+      JSON.stringify({ scale, translateX, translateY }),
+    );
+  } catch (error) {
+    // Ignore write failures (e.g. private browsing / storage full).
+  }
+}
+
+function scheduleSaveViewState() {
+  if (saveViewTimeoutId) clearTimeout(saveViewTimeoutId);
+  saveViewTimeoutId = setTimeout(saveViewState, VIEW_SAVE_DEBOUNCE_MS);
+}
+
+function loadViewState() {
+  try {
+    const raw = window.localStorage.getItem(VIEW_STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (
+      !Number.isFinite(parsed?.scale) ||
+      !Number.isFinite(parsed?.translateX) ||
+      !Number.isFinite(parsed?.translateY)
+    ) {
+      return null;
+    }
+    return {
+      scale: Math.min(MAX_SCALE, Math.max(MIN_SCALE, parsed.scale)),
+      translateX: parsed.translateX,
+      translateY: parsed.translateY,
+    };
+  } catch (error) {
+    return null;
+  }
+}
+
+function restoreViewState(state, instant = false) {
+  stopZoomAnimation();
+  const rect = viewportEl.getBoundingClientRect();
+  scale = state.scale;
+  translateX = state.translateX;
+  translateY = state.translateY;
+  targetScale = scale;
+  targetTranslateX = translateX;
+  targetTranslateY = translateY;
+  lastViewportWidth = rect.width;
+  lastViewportHeight = rect.height;
+  if (instant) {
+    applyTransformInstant();
+  } else {
+    applyTransform();
+  }
+}
+
 function applyTransform() {
   transformEl.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
   updatePinScale();
+  scheduleSaveViewState();
 }
 
 function stopZoomAnimation() {
@@ -1142,6 +1203,7 @@ function initPanZoom() {
   window.addEventListener('keydown', onKeyDown);
   window.addEventListener('keyup', onKeyUp);
   window.addEventListener('blur', onWindowBlur);
+  window.addEventListener('pagehide', saveViewState);
 
   resetViewBtn.addEventListener('click', () => {
     fitMapToViewport();
@@ -1243,11 +1305,20 @@ async function init() {
     appEl.classList.add('transitions-ready');
   });
 
+  const applyInitialView = () => {
+    const savedView = loadViewState();
+    if (savedView) {
+      restoreViewState(savedView, true);
+    } else {
+      fitMapToViewport(true);
+    }
+  };
+
   const basemap = document.getElementById('basemap');
   if (basemap.complete) {
-    fitMapToViewport(true);
+    applyInitialView();
   } else {
-    basemap.addEventListener('load', () => fitMapToViewport(true));
+    basemap.addEventListener('load', applyInitialView);
   }
 }
 
