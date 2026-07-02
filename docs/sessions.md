@@ -318,3 +318,14 @@ Sessions are listed chronologically. Each entry includes the date, topic, and a 
 
 **Done:**
 - `public/assets/css/style.css` — `.map-pin` width/height reduced from `50px` to `34px`. Hover/focus scale (`--pin-scale` multiplier) and drag/dirty styling are relative, so no other changes were needed.
+
+---
+
+## 2026-07-02 | Persist zoom/pan view across reloads
+**Commit:** `f2ce232`
+
+**User:** Reloading the page reset the map view; wanted the current zoom/pan position preserved via localStorage.
+
+**Done:**
+- `public/script.js` — `applyTransform()` (the single choke point every pan/zoom/resize/keyboard-pan path flows through) now debounce-saves `{scale, translateX, translateY}` to `localStorage['hk-map-view']` (250ms debounce, plus an immediate `pagehide` save as a safety net). On load, `init()` restores this saved view via `restoreViewState()` instead of always calling `fitMapToViewport()`; falls back to fit-to-viewport on first visit or corrupted/missing storage. Saved scale is clamped to `[MIN_SCALE, MAX_SCALE]` on read.
+- Verified with a Playwright-driven headless Chromium against the running server: zoomed to max scale (4x), reloaded, and the exact same transform was restored (confirmed via logged transform values and a screenshot).
