@@ -329,3 +329,15 @@ Sessions are listed chronologically. Each entry includes the date, topic, and a 
 **Done:**
 - `public/script.js` — `applyTransform()` (the single choke point every pan/zoom/resize/keyboard-pan path flows through) now debounce-saves `{scale, translateX, translateY}` to `localStorage['hk-map-view']` (250ms debounce, plus an immediate `pagehide` save as a safety net). On load, `init()` restores this saved view via `restoreViewState()` instead of always calling `fitMapToViewport()`; falls back to fit-to-viewport on first visit or corrupted/missing storage. Saved scale is clamped to `[MIN_SCALE, MAX_SCALE]` on read.
 - Verified with a Playwright-driven headless Chromium against the running server: zoomed to max scale (4x), reloaded, and the exact same transform was restored (confirmed via logged transform values and a screenshot).
+
+---
+
+## 2026-07-14 | Domain outage: cornimap.com suspended (ops, no code change)
+
+**User:** Shared a "cornimap.com stopped using Cloudflare's nameservers" email and asked whether it was phishing, since the site had stopped loading.
+
+**Investigation:** Initially suspected phishing due to odd nameserver names (`verify-contact-details.namecheap.com`, `failed-whois-verification.namecheap.com`), but the sending address (`noreply@notify.cloudflare.com`) was legitimate. Namecheap dashboard confirmed: "Domain suspended. Contacts verification needed." `dig`/`whois` confirmed those placeholder hostnames were the live authoritative nameservers at the registry — Namecheap had suspended the domain for failed ICANN WHOIS/contact verification and parked it on those nameservers, overriding the Custom DNS (Cloudflare) setting shown in Namecheap's panel.
+
+**Resolution:** Used Namecheap Live Chat; agent (Suzy Q / Darsini M.) resent the verification email to `mokass844@gmail.com`. User clicked the link (`raa.namecheap.com/ConfirmProfile.aspx`) and got "Registrant email address successfully verified." Namecheap states sites auto-reactivate within 24–48 hours, after which Cloudflare should pick up the correct nameservers (`bart.ns.cloudflare.com` / `june.ns.cloudflare.com`) automatically.
+
+**Resolved:** cornimap.com confirmed back online same day (2026-07-14), well within the 24–48h window Namecheap quoted.
